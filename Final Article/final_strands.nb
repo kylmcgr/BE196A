@@ -1,0 +1,1439 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     67252,       1431]
+NotebookOptionsPosition[     65088,       1394]
+NotebookOutlinePosition[     65480,       1411]
+CellTagsIndexPosition[     65437,       1408]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["Note: requires DSDdiagramV1.wl to be loaded.", "Text",
+ CellChangeTimes->{{3.643831172376833*^9, 3.6438312056963835`*^9}, {
+  3.6438539700106926`*^9, 
+  3.64385397033692*^9}},ExpressionUUID->"295a0661-cca8-460f-a748-\
+043d7f3ea284"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.5952939468231897`*^9, 3.595293962776102*^9}},
+ CellLabel->"In[33]:=",ExpressionUUID->"73a967e8-2476-481d-b9b8-da7a56807baa"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"foot", "=", "\"\<CTCCTC\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"leg", "=", "\"\<CTTCTACTTCATAAC\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"antilock", "=", "\"\<ACACAC\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"lock", "=", "\"\<CATTTCAACTAAACC\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"T", "=", "\"\<AGTGGA\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Xi", "=", "\"\<ATGCGATTACGATCA\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Pj", "=", "\"\<GCATCTAGCTAGCTA\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"X", "=", "\"\<TACGATCGATCGTAG\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cl", "[", "\"\<foot\>\"", "]"}], "=", "1"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cl", "[", "\"\<leg\>\"", "]"}], "=", 
+   RowBox[{"-", "1"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cl", "[", "\"\<antilock\>\"", "]"}], "=", "2"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cl", "[", "\"\<lock\>\"", "]"}], "=", "3"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cl", "[", "\"\<T\>\"", "]"}], "=", "4"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cl", "[", "\"\<Xi\>\"", "]"}], "=", "5"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cl", "[", "\"\<Pj\>\"", "]"}], "=", "6"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cl", "[", "\"\<X\>\"", "]"}], "=", "7"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"tether1", "=", "\"\<foot* leg*\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"tether2", "=", "\"\<leg* foot*\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"key", "=", "\"\<foot leg @45 foot\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"antilockstrand", "=", "\"\<antilock lock @45 leg\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"lockstrand", "=", "\"\<lock* antilock* @45 leg\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "circuit", "=", "\"\<@-45 lock @45 Xi( T( @45 Pj + ) ) @45 T*\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"clasp1", "=", "\"\<@-45 X* @45 foot*\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"clasp2", "=", "\"\<@45 X* @-45 foot*\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"key2", "=", "\"\<@90 foot @-90 leg @-90 foot\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"activator", "=", "\"\<foot X\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"clasp3", "=", "\"\<X* foot*\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"tether1", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"tether2", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"key", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"antilockstrand", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"lockstrand", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"circuit", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"clasp1", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"clasp2", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"key2", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"activator", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"clasp3", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.8248332627135677`*^9, 3.824833389929695*^9}, {
+   3.8248715495414343`*^9, 3.8248716197495885`*^9}, {3.824871701720272*^9, 
+   3.8248717962324123`*^9}, {3.8248718385753517`*^9, 
+   3.8248718794439497`*^9}, {3.824873233074247*^9, 3.824873397843356*^9}, {
+   3.8248734640248675`*^9, 3.824873650571124*^9}, {3.82487371631152*^9, 
+   3.824873745378528*^9}, {3.82487379585501*^9, 3.824873832898196*^9}, 
+   3.82487390116054*^9, {3.824873960150097*^9, 3.824873983510446*^9}, {
+   3.8248740547166147`*^9, 3.8248740752795763`*^9}, {3.82487410676845*^9, 
+   3.824874138604169*^9}, {3.8248759631606455`*^9, 3.824875966371646*^9}, {
+   3.824876006975708*^9, 3.824876008498284*^9}, {3.82487653861794*^9, 
+   3.824876550468796*^9}, {3.824879311160742*^9, 3.824879347056589*^9}, {
+   3.8248794106908827`*^9, 3.824879522935174*^9}, {3.8248795730911875`*^9, 
+   3.8248795890788164`*^9}, {3.824879653164837*^9, 3.824879654017173*^9}, {
+   3.8248796906829844`*^9, 3.8248797378506503`*^9}, {3.824879776169273*^9, 
+   3.824879813264963*^9}, {3.824880779048717*^9, 3.8248808070149183`*^9}, {
+   3.824880911997636*^9, 3.8248809266469126`*^9}},
+ CellLabel->
+  "In[310]:=",ExpressionUUID->"3a325858-e52a-4d48-aa0b-d75510876328"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+      LineBox[{{0, 0}, {0.5, -0.4}, {1., 0.4}, {1.5, -0.4}, {2., 0.4}, {
+        2.5, -0.4}, {3., 0.4}, {3.5, -0.4}, {4., 0.4}, {4.5, -0.4}, {5, 0}, {
+        6, 0}}], InsetBox[
+       StyleBox["\<\"foot*\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], {3, 2}]}, {
+      {GrayLevel[0], AbsoluteThickness[3], LineBox[{{6, 0}, {21, 0}}], 
+       InsetBox[
+        StyleBox["\<\"leg*\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], NCache[{Rational[27, 2], 2}, {13.5, 2}]]}, {
+       {GrayLevel[1], AbsoluteThickness[3], LineBox[{{20.9, 0.}, {21, 0}}]}, 
+       {GrayLevel[0], AbsoluteThickness[3], 
+        LineBox[{{20., 0.5}, {21, 0}, {20., -0.5}}]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->{310, 125.},
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.8248809270059123`*^9}},
+ CellLabel->
+  "Out[337]=",ExpressionUUID->"5c289462-7441-4af3-afd8-9e6992d14ee6"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {GrayLevel[0], AbsoluteThickness[3], LineBox[{{0, 0}, {15, 0}}], InsetBox[
+       StyleBox["\<\"leg*\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], NCache[{Rational[15, 2], 2}, {7.5, 2}]]}, {
+      {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+       LineBox[{{15, 0}, {15.5, -0.4}, {16., 0.4}, {16.5, -0.4}, {17., 0.4}, {
+         17.5, -0.4}, {18., 0.4}, {18.5, -0.4}, {19., 0.4}, {19.5, -0.4}, {20,
+          0}, {21, 0}}], InsetBox[
+        StyleBox["\<\"foot*\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], {18, 2}]}, {
+       {GrayLevel[1], AbsoluteThickness[3], LineBox[{{20.9, 0.}, {21, 0}}]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+        LineBox[{{20., 0.5}, {21, 0}, {20., -0.5}}]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->{310, 125.},
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.8248809270119133`*^9}},
+ CellLabel->
+  "Out[338]=",ExpressionUUID->"3369b88e-7e19-4410-89a5-758e20f897fc"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+      LineBox[{{0, 0}, {0.5, -0.4}, {1., 0.4}, {1.5, -0.4}, {2., 0.4}, {
+        2.5, -0.4}, {3., 0.4}, {3.5, -0.4}, {4., 0.4}, {4.5, -0.4}, {5, 0}, {
+        6, 0}}], InsetBox[
+       StyleBox["\<\"foot\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], {3, 2}]}, 
+     {GrayLevel[0], AbsoluteThickness[3], LineBox[{{6, 0}, {21, 0}}], InsetBox[
+       StyleBox["\<\"leg\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], NCache[{Rational[27, 2], 2}, {13.5, 2}]]}, {
+      {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+       LineBox[NCache[{{21, 0}, {21.63639610306789, 0.07071067811865472}, {
+          21.424264068711928`, 0.9899494936611665}, {22.34350288425444, 
+          0.7778174593052022}, {22.131370849898477`, 1.6970562748477138`}, {
+          23.050609665440987`, 1.4849242404917495`}, {22.838477631085023`, 
+          2.4041630560342613`}, {23.757716446627533`, 2.192031021678297}, {
+          23.54558441227157, 3.1112698372208087`}, {24.464823227814083`, 
+          2.899137802864845}, {
+          21 - 2^Rational[-1, 2] + 3 2^Rational[1, 2], -2^Rational[-1, 2] + 
+           3 2^Rational[1, 2]}, {
+          21 + 3 2^Rational[1, 2], 3 2^Rational[1, 2]}}, {{21, 0}, {
+          21.63639610306789, 0.07071067811865472}, {21.424264068711928`, 
+          0.9899494936611665}, {22.34350288425444, 0.7778174593052022}, {
+          22.131370849898477`, 1.6970562748477138`}, {23.050609665440987`, 
+          1.4849242404917495`}, {22.838477631085023`, 2.4041630560342613`}, {
+          23.757716446627533`, 2.192031021678297}, {23.54558441227157, 
+          3.1112698372208087`}, {24.464823227814083`, 2.899137802864845}, {
+          24.535533905932738`, 3.535533905932738}, {25.242640687119284`, 
+          4.242640687119286}}]], InsetBox[
+        StyleBox["\<\"foot\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], {20.646446609406727, 4.596194077712559}]}, {
+       {GrayLevel[1], AbsoluteThickness[3], 
+        LineBox[NCache[{{25.171930009000633`, 4.171930009000631}, {
+           21 + 3 2^Rational[1, 2], 3 2^Rational[1, 2]}}, {{
+          25.171930009000633`, 4.171930009000631}, {25.242640687119284`, 
+          4.242640687119286}}]]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+        LineBox[NCache[{{24.18198051533946, 3.8890872965260117`}, {
+           21 + 3 2^Rational[1, 2], 3 2^Rational[1, 2]}, {24.889087296526014`,
+            3.1819805153394647`}}, {{24.18198051533946, 
+          3.8890872965260117`}, {25.242640687119284`, 4.242640687119286}, {
+          24.889087296526014`, 3.1819805153394647`}}]]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->
+    NCache[{10 (31 + 3 2^Rational[1, 2]), 145.9619407771256}, {
+     352.42640687119285`, 145.9619407771256}],
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.824880927056913*^9}},
+ CellLabel->
+  "Out[339]=",ExpressionUUID->"0f98d185-609a-4b78-b198-9886ef138b59"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+      AbsoluteThickness[3], 
+      LineBox[{{0, 0}, {0.5, -0.4}, {1., 0.4}, {1.5, -0.4}, {2., 0.4}, {
+        2.5, -0.4}, {3., 0.4}, {3.5, -0.4}, {4., 0.4}, {4.5, -0.4}, {5, 0}, {
+        6, 0}}], InsetBox[
+       StyleBox["\<\"antilock\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], {3, 2}]}, 
+     {RGBColor[0.624866, 0.673302, 0.264296], AbsoluteThickness[3], 
+      LineBox[{{6, 0}, {21, 0}}], InsetBox[
+       StyleBox["\<\"lock\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], NCache[{Rational[27, 2], 2}, {13.5, 2}]]}, {
+      {GrayLevel[0], AbsoluteThickness[3], 
+       LineBox[NCache[{{21, 0}, {
+          21 + 15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}}, {{21, 0}, {
+          31.606601717798213`, 10.606601717798211`}}]], InsetBox[
+        StyleBox["\<\"leg\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], {24.181980515339465, 7.424621202458749}]}, {
+       {GrayLevel[1], AbsoluteThickness[3], 
+        LineBox[NCache[{{31.535891039679555`, 10.535891039679557`}, {
+           21 + 15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}}, {{
+          31.535891039679555`, 10.535891039679557`}, {31.606601717798213`, 
+          10.606601717798211`}}]]}, 
+       {GrayLevel[0], AbsoluteThickness[3], 
+        LineBox[NCache[{{30.54594154601839, 10.253048327204938`}, {
+           21 + 15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}, {
+           31.253048327204937`, 9.54594154601839}}, {{30.54594154601839, 
+          10.253048327204938`}, {31.606601717798213`, 10.606601717798211`}, {
+          31.253048327204937`, 9.54594154601839}}]]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->
+    NCache[{10 (31 + 15 2^Rational[-1, 2]), 10 (10 + 15 2^Rational[-1, 2])}, {
+     416.06601717798213`, 206.06601717798213`}],
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.824880927096945*^9}},
+ CellLabel->
+  "Out[340]=",ExpressionUUID->"8f2209ef-8537-4119-9377-fec9b1758307"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {RGBColor[0.624866, 0.673302, 0.264296], AbsoluteThickness[3], 
+      LineBox[{{0, 0}, {15, 0}}], InsetBox[
+       StyleBox["\<\"lock*\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], NCache[{Rational[15, 2], 2}, {7.5, 2}]]}, 
+     {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+      AbsoluteThickness[3], 
+      LineBox[{{15, 0}, {15.5, -0.4}, {16., 0.4}, {16.5, -0.4}, {17., 0.4}, {
+        17.5, -0.4}, {18., 0.4}, {18.5, -0.4}, {19., 0.4}, {19.5, -0.4}, {20, 
+        0}, {21, 0}}], InsetBox[
+       StyleBox["\<\"antilock*\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], {18, 2}]}, {
+      {GrayLevel[0], AbsoluteThickness[3], 
+       LineBox[NCache[{{21, 0}, {
+          21 + 15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}}, {{21, 0}, {
+          31.606601717798213`, 10.606601717798211`}}]], InsetBox[
+        StyleBox["\<\"leg\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], {24.181980515339465, 7.424621202458749}]}, {
+       {GrayLevel[1], AbsoluteThickness[3], 
+        LineBox[NCache[{{31.535891039679555`, 10.535891039679557`}, {
+           21 + 15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}}, {{
+          31.535891039679555`, 10.535891039679557`}, {31.606601717798213`, 
+          10.606601717798211`}}]]}, 
+       {GrayLevel[0], AbsoluteThickness[3], 
+        LineBox[NCache[{{30.54594154601839, 10.253048327204938`}, {
+           21 + 15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}, {
+           31.253048327204937`, 9.54594154601839}}, {{30.54594154601839, 
+          10.253048327204938`}, {31.606601717798213`, 10.606601717798211`}, {
+          31.253048327204937`, 9.54594154601839}}]]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->
+    NCache[{10 (31 + 15 2^Rational[-1, 2]), 10 (10 + 15 2^Rational[-1, 2])}, {
+     416.06601717798213`, 206.06601717798213`}],
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.824880927101912*^9}},
+ CellLabel->
+  "Out[341]=",ExpressionUUID->"b6aa5d86-913e-4a82-9704-823638729b05"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {RGBColor[0.624866, 0.673302, 0.264296], AbsoluteThickness[3], 
+      LineBox[NCache[{{0, 0}, {
+         15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}}, {{0, 0}, {
+         10.606601717798211`, -10.606601717798211`}}]], InsetBox[
+       StyleBox["\<\"lock\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], {7.778174593052022, -2.82842712474619}]}, {{
+       {GrayLevel[0], 
+        LineBox[{{11.106601717798211`, -11.006601717798212`}, {
+         11.106601717798211`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{12.106601717798211`, -11.006601717798212`}, {
+         12.106601717798211`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{13.106601717798211`, -11.006601717798212`}, {
+         13.106601717798211`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{14.106601717798211`, -11.006601717798212`}, {
+         14.106601717798211`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{15.106601717798211`, -11.006601717798212`}, {
+         15.106601717798211`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{16.106601717798213`, -11.006601717798212`}, {
+         16.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{17.106601717798213`, -11.006601717798212`}, {
+         17.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{18.106601717798213`, -11.006601717798212`}, {
+         18.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{19.106601717798213`, -11.006601717798212`}, {
+         19.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{20.106601717798213`, -11.006601717798212`}, {
+         20.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{21.106601717798213`, -11.006601717798212`}, {
+         21.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{22.106601717798213`, -11.006601717798212`}, {
+         22.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{23.106601717798213`, -11.006601717798212`}, {
+         23.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{24.106601717798213`, -11.006601717798212`}, {
+         24.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{25.106601717798213`, -11.006601717798212`}, {
+         25.106601717798213`, -12.206601717798211`}}]}}, 
+      {RGBColor[0.37014875, 0.45507475000000003`, 0.47040750000000003`], 
+       AbsoluteThickness[3], 
+       LineBox[NCache[{{15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}, {
+          15 + 15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}}, {{
+         10.606601717798211`, -10.606601717798211`}, {
+         25.606601717798213`, -10.606601717798211`}}]], InsetBox[
+        StyleBox["\<\"Xi\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], 
+        NCache[{Rational[1, 2] (15 + 15 2^Rational[1, 2]), 2 - 15 
+          2^Rational[-1, 2]}, {18.106601717798213`, -8.606601717798211}]]}}, {{
+       {GrayLevel[0], 
+        LineBox[{{26.106601717798213`, -11.006601717798212`}, {
+         26.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{27.106601717798213`, -11.006601717798212`}, {
+         27.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{28.106601717798213`, -11.006601717798212`}, {
+         28.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{29.106601717798213`, -11.006601717798212`}, {
+         29.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{30.106601717798213`, -11.006601717798212`}, {
+         30.106601717798213`, -12.206601717798211`}}]}, 
+       {GrayLevel[0], 
+        LineBox[{{31.106601717798213`, -11.006601717798212`}, {
+         31.106601717798213`, -12.206601717798211`}}]}}, 
+      {RGBColor[0.8453409999999999, 0.6248695, 0.3151775], AbsoluteThickness[
+       3], LineBox[
+        NCache[{{15 + 15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}, {
+          26.106601717798213`, -11.006601717798212`}, {
+          26.606601717798213`, -10.206601717798211`}, {
+          27.106601717798213`, -11.006601717798212`}, {
+          27.606601717798213`, -10.206601717798211`}, {
+          28.106601717798213`, -11.006601717798212`}, {
+          28.606601717798213`, -10.206601717798211`}, {
+          29.106601717798213`, -11.006601717798212`}, {
+          29.606601717798213`, -10.206601717798211`}, {
+          30.106601717798213`, -11.006601717798212`}, {
+          20 + 15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}, {
+          21 + 15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}}, {{
+         25.606601717798213`, -10.606601717798211`}, {
+         26.106601717798213`, -11.006601717798212`}, {
+         26.606601717798213`, -10.206601717798211`}, {
+         27.106601717798213`, -11.006601717798212`}, {
+         27.606601717798213`, -10.206601717798211`}, {
+         28.106601717798213`, -11.006601717798212`}, {
+         28.606601717798213`, -10.206601717798211`}, {
+         29.106601717798213`, -11.006601717798212`}, {
+         29.606601717798213`, -10.206601717798211`}, {
+         30.106601717798213`, -11.006601717798212`}, {
+         30.606601717798213`, -10.606601717798211`}, {
+         31.606601717798213`, -10.606601717798211`}}]], InsetBox[
+        StyleBox["\<\"T\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], 
+        NCache[{Rational[1, 2] (36 + 15 2^Rational[1, 2]), 2 - 15 
+          2^Rational[-1, 2]}, {28.606601717798213`, -8.606601717798211}]]}}, {
+      {RGBColor[0.5159885000000001, 0.38801575, 0.25216625], 
+       AbsoluteThickness[3], 
+       LineBox[NCache[{{21 + 15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}, {
+          21 + 15 2^Rational[1, 2], 0}}, {{
+          31.606601717798213`, -10.606601717798211`}, {
+          42.21320343559643, 0}}]], InsetBox[
+        StyleBox["\<\"Pj\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], {35.14213562373095, -3.535533905932737}]}, {
+       {GrayLevel[1], AbsoluteThickness[3], 
+        LineBox[NCache[{{42.14249275747777, -0.07071067811865475}, {
+           21 + 15 2^Rational[1, 2], 0}}, {{
+           42.14249275747777, -0.07071067811865475}, {
+           42.21320343559643, 0}}]]}, 
+       {RGBColor[0.5159885000000001, 0.38801575, 0.25216625], 
+        AbsoluteThickness[3], 
+        LineBox[NCache[{{41.152543263816604`, -0.35355339059327373`}, {
+           21 + 15 2^Rational[1, 2], 0}, {
+           41.85965004500315, -1.0606601717798212`}}, {{
+           41.152543263816604`, -0.35355339059327373`}, {
+           42.21320343559643, 0}, {
+           41.85965004500315, -1.0606601717798212`}}]]}}}, 
+     {RGBColor[0.8453409999999999, 0.6248695, 0.3151775], AbsoluteThickness[
+      3], LineBox[
+       NCache[{{21 + 15 2^Rational[-1, 2], -2 - 15 2^Rational[-1, 2]}, {
+         31.106601717798213`, -12.206601717798211`}, {
+         30.606601717798213`, -13.006601717798212`}, {
+         30.106601717798213`, -12.206601717798211`}, {
+         29.606601717798213`, -13.006601717798212`}, {
+         29.106601717798213`, -12.206601717798211`}, {
+         28.606601717798213`, -13.006601717798212`}, {
+         28.106601717798213`, -12.206601717798211`}, {
+         27.606601717798213`, -13.006601717798212`}, {
+         27.106601717798213`, -12.206601717798211`}, {
+         16 + 15 2^Rational[-1, 2], -2 - 15 2^Rational[-1, 2]}, {
+         15 + 15 2^Rational[-1, 2], -2 - 15 2^Rational[-1, 2]}}, {{
+        31.606601717798213`, -12.606601717798211`}, {
+        31.106601717798213`, -12.206601717798211`}, {
+        30.606601717798213`, -13.006601717798212`}, {
+        30.106601717798213`, -12.206601717798211`}, {
+        29.606601717798213`, -13.006601717798212`}, {
+        29.106601717798213`, -12.206601717798211`}, {
+        28.606601717798213`, -13.006601717798212`}, {
+        28.106601717798213`, -12.206601717798211`}, {
+        27.606601717798213`, -13.006601717798212`}, {
+        27.106601717798213`, -12.206601717798211`}, {
+        26.606601717798213`, -12.606601717798211`}, {
+        25.606601717798213`, -12.606601717798211`}}]], InsetBox[
+       StyleBox["\<\"T*\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], 
+       NCache[{Rational[1, 2] (36 + 15 2^Rational[1, 2]), -2 + 
+         Rational[1, 2] (-4 - 15 2^Rational[1, 2])}, {
+        28.606601717798213`, -14.606601717798213`}]]}, 
+     {RGBColor[0.37014875, 0.45507475000000003`, 0.47040750000000003`], 
+      AbsoluteThickness[3], 
+      LineBox[NCache[{{
+         15 + 15 2^Rational[-1, 2], -2 - 15 2^Rational[-1, 2]}, {
+         15 2^Rational[-1, 2], -2 - 15 2^Rational[-1, 2]}}, {{
+        25.606601717798213`, -12.606601717798211`}, {
+        10.606601717798211`, -12.606601717798211`}}]], InsetBox[
+       StyleBox["\<\"Xi*\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], 
+       NCache[{Rational[1, 2] (15 + 15 2^Rational[1, 2]), -2 + 
+         Rational[1, 2] (-4 - 15 2^Rational[1, 2])}, {
+        18.106601717798213`, -14.606601717798213`}]]}, {
+      {RGBColor[0.8453409999999999, 0.6248695, 0.3151775], AbsoluteThickness[
+       3], LineBox[
+        NCache[{{15 2^Rational[-1, 2], -2 - 15 2^Rational[-1, 2]}, {
+          9.970205614730318, -12.677312395916866`}, {
+          10.182337649086284`, -13.596551211459378`}, {
+          9.263098833543772, -13.384419177103414`}, {
+          9.475230867899736, -14.303657992645926`}, {
+          8.555992052357224, -14.09152595828996}, {
+          8.768124086713188, -15.010764773832474`}, {
+          7.848885271170676, -14.798632739476508`}, {
+          8.06101730552664, -15.71787155501902}, {
+          7.141778489984128, -15.505739520663056`}, {
+          5 2^Rational[1, 2], -2 - 10 2^Rational[1, 2]}, {
+          15 2^Rational[-1, 2] - 3 2^Rational[1, 2], -2 - 15 
+           2^Rational[-1, 2] - 3 2^Rational[1, 2]}}, {{
+         10.606601717798211`, -12.606601717798211`}, {
+         9.970205614730318, -12.677312395916866`}, {
+         10.182337649086284`, -13.596551211459378`}, {
+         9.263098833543772, -13.384419177103414`}, {
+         9.475230867899736, -14.303657992645926`}, {
+         8.555992052357224, -14.09152595828996}, {
+         8.768124086713188, -15.010764773832474`}, {
+         7.848885271170676, -14.798632739476508`}, {
+         8.06101730552664, -15.71787155501902}, {
+         7.141778489984128, -15.505739520663056`}, {
+         7.0710678118654755`, -16.14213562373095}, {
+         6.363961030678926, -16.849242404917497`}}]], InsetBox[
+        StyleBox["\<\"T*\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[
+          0]], {10.25304832720494, -16.495689014324224}]}, {
+       {GrayLevel[1], AbsoluteThickness[3], 
+        LineBox[NCache[{{6.43467170879758, -16.778531726798843`}, {
+           15 2^Rational[-1, 2] - 3 2^Rational[1, 2], -2 - 15 
+            2^Rational[-1, 2] - 3 2^Rational[1, 2]}}, {{
+          6.43467170879758, -16.778531726798843`}, {
+          6.363961030678926, -16.849242404917497`}}]]}, 
+       {RGBColor[0.8453409999999999, 0.6248695, 0.3151775], AbsoluteThickness[
+        3], LineBox[
+         NCache[{{7.424621202458747, -16.495689014324224`}, {
+           15 2^Rational[-1, 2] - 3 2^Rational[1, 2], -2 - 15 
+            2^Rational[-1, 2] - 3 2^Rational[1, 2]}, {
+           6.717514421272199, -15.788582233137676`}}, {{
+          7.424621202458747, -16.495689014324224`}, {
+          6.363961030678926, -16.849242404917497`}, {
+          6.717514421272199, -15.788582233137676`}}]]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->
+    NCache[{10 (31 + 15 2^Rational[1, 2]), 
+      10 (12 + 15 2^Rational[-1, 2] + 3 2^Rational[1, 2])}, {
+     522.1320343559643, 268.492424049175}],
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.8248809271909113`*^9}},
+ CellLabel->
+  "Out[342]=",ExpressionUUID->"e48263c0-ee04-4d27-9b9b-ecc33f71e846"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {RGBColor[0.3901888, 0.47217200000000004`, 0.6600904], AbsoluteThickness[
+      3], LineBox[
+       NCache[{{0, 0}, {15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}}, {{0, 
+         0}, {10.606601717798211`, -10.606601717798211`}}]], InsetBox[
+       StyleBox["\<\"X*\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], {7.071067811865475, -3.535533905932737}]}, {
+      {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+       LineBox[NCache[{{15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}, {
+          11.106601717798211`, -11.006601717798212`}, {
+          11.606601717798211`, -10.206601717798211`}, {
+          12.106601717798211`, -11.006601717798212`}, {
+          12.606601717798211`, -10.206601717798211`}, {
+          13.106601717798211`, -11.006601717798212`}, {
+          13.606601717798211`, -10.206601717798211`}, {
+          14.106601717798211`, -11.006601717798212`}, {
+          14.606601717798211`, -10.206601717798211`}, {
+          15.106601717798211`, -11.006601717798212`}, {
+          5 + 15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}, {
+          6 + 15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}}, {{
+         10.606601717798211`, -10.606601717798211`}, {
+         11.106601717798211`, -11.006601717798212`}, {
+         11.606601717798211`, -10.206601717798211`}, {
+         12.106601717798211`, -11.006601717798212`}, {
+         12.606601717798211`, -10.206601717798211`}, {
+         13.106601717798211`, -11.006601717798212`}, {
+         13.606601717798211`, -10.206601717798211`}, {
+         14.106601717798211`, -11.006601717798212`}, {
+         14.606601717798211`, -10.206601717798211`}, {
+         15.106601717798211`, -11.006601717798212`}, {
+         15.606601717798211`, -10.606601717798211`}, {
+         16.606601717798213`, -10.606601717798211`}}]], InsetBox[
+        StyleBox["\<\"foot*\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], 
+        NCache[{Rational[1, 2] (6 + 15 2^Rational[1, 2]), 2 - 15 
+          2^Rational[-1, 2]}, {13.606601717798213`, -8.606601717798211}]]}, {
+       {GrayLevel[1], AbsoluteThickness[3], 
+        LineBox[NCache[{{16.506601717798212`, -10.606601717798211`}, {
+           6 + 15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}}, {{
+          16.506601717798212`, -10.606601717798211`}, {
+          16.606601717798213`, -10.606601717798211`}}]]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+        LineBox[NCache[{{15.606601717798211`, -10.106601717798211`}, {
+           6 + 15 2^Rational[-1, 2], (-15) 2^Rational[-1, 2]}, {
+           15.606601717798211`, -11.106601717798211`}}, {{
+          15.606601717798211`, -10.106601717798211`}, {
+          16.606601717798213`, -10.606601717798211`}, {
+          15.606601717798211`, -11.106601717798211`}}]]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->
+    NCache[{10 (16 + 15 2^Rational[-1, 2]), 211.06601717798213`}, {
+     266.06601717798213`, 211.06601717798213`}],
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.824880927227912*^9}},
+ CellLabel->
+  "Out[343]=",ExpressionUUID->"863068c8-c0aa-4644-9257-ad07be828633"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {RGBColor[0.3901888, 0.47217200000000004`, 0.6600904], AbsoluteThickness[
+      3], LineBox[
+       NCache[{{0, 0}, {15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}}, {{0, 
+         0}, {10.606601717798211`, 10.606601717798211`}}]], InsetBox[
+       StyleBox["\<\"X*\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], {3.535533905932737, 7.071067811865475}]}, {
+      {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+       LineBox[NCache[{{15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}, {
+          11.106601717798211`, 10.206601717798211`}, {11.606601717798211`, 
+          11.006601717798212`}, {12.106601717798211`, 10.206601717798211`}, {
+          12.606601717798211`, 11.006601717798212`}, {13.106601717798211`, 
+          10.206601717798211`}, {13.606601717798211`, 11.006601717798212`}, {
+          14.106601717798211`, 10.206601717798211`}, {14.606601717798211`, 
+          11.006601717798212`}, {15.106601717798211`, 10.206601717798211`}, {
+          5 + 15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}, {
+          6 + 15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}}, {{
+         10.606601717798211`, 10.606601717798211`}, {11.106601717798211`, 
+         10.206601717798211`}, {11.606601717798211`, 11.006601717798212`}, {
+         12.106601717798211`, 10.206601717798211`}, {12.606601717798211`, 
+         11.006601717798212`}, {13.106601717798211`, 10.206601717798211`}, {
+         13.606601717798211`, 11.006601717798212`}, {14.106601717798211`, 
+         10.206601717798211`}, {14.606601717798211`, 11.006601717798212`}, {
+         15.106601717798211`, 10.206601717798211`}, {15.606601717798211`, 
+         10.606601717798211`}, {16.606601717798213`, 10.606601717798211`}}]], 
+       InsetBox[
+        StyleBox["\<\"foot*\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], 
+        NCache[{Rational[1, 2] (6 + 15 2^Rational[1, 2]), 2 + 
+          15 2^Rational[-1, 2]}, {13.606601717798213`, 
+         12.606601717798211`}]]}, {
+       {GrayLevel[1], AbsoluteThickness[3], 
+        LineBox[NCache[{{16.506601717798212`, 10.606601717798211`}, {
+           6 + 15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}}, {{
+          16.506601717798212`, 10.606601717798211`}, {16.606601717798213`, 
+          10.606601717798211`}}]]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+        LineBox[NCache[{{15.606601717798211`, 11.106601717798211`}, {
+           6 + 15 2^Rational[-1, 2], 15 2^Rational[-1, 2]}, {
+           15.606601717798211`, 10.106601717798211`}}, {{15.606601717798211`, 
+          11.106601717798211`}, {16.606601717798213`, 10.606601717798211`}, {
+          15.606601717798211`, 10.106601717798211`}}]]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->
+    NCache[{10 (16 + 15 2^Rational[-1, 2]), 10 (12 + 15 2^Rational[-1, 2])}, {
+     266.06601717798213`, 226.06601717798213`}],
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.8248809272329464`*^9}},
+ CellLabel->
+  "Out[344]=",ExpressionUUID->"9414df9a-6a4f-4578-bcff-58fbd4daa5b5"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+      LineBox[{{0, 0}, {0.4, 0.5}, {-0.4, 1.}, {0.4, 1.5}, {-0.4, 2.}, {0.4, 
+        2.5}, {-0.4, 3.}, {0.4, 3.5}, {-0.4, 4.}, {0.4, 4.5}, {0, 5}, {0, 
+        6}}], InsetBox[
+       StyleBox["\<\"foot\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], {-3.5, 3.}]}, 
+     {GrayLevel[0], AbsoluteThickness[3], LineBox[{{0, 6}, {15, 6}}], InsetBox[
+       StyleBox["\<\"leg\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], NCache[{Rational[15, 2], 8}, {7.5, 8}]]}, {
+      {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+       LineBox[{{15, 6}, {14.6, 5.5}, {15.4, 5.}, {14.6, 4.5}, {15.4, 4.}, {
+         14.6, 3.5}, {15.4, 3.}, {14.6, 2.5}, {15.4, 2.}, {14.6, 1.5}, {15, 
+         1}, {15, 0}}], InsetBox[
+        StyleBox["\<\"foot\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], {18.5, 3.}]}, {
+       {GrayLevel[1], AbsoluteThickness[3], LineBox[{{15., 0.1}, {15, 0}}]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+        LineBox[{{15.5, 1.}, {15, 0}, {14.5, 1.}}]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->{320., 180},
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.8248809272689123`*^9}},
+ CellLabel->
+  "Out[345]=",ExpressionUUID->"b9ecabf1-79c1-4544-a6ff-6d380e065822"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+      LineBox[{{0, 0}, {0.5, -0.4}, {1., 0.4}, {1.5, -0.4}, {2., 0.4}, {
+        2.5, -0.4}, {3., 0.4}, {3.5, -0.4}, {4., 0.4}, {4.5, -0.4}, {5, 0}, {
+        6, 0}}], InsetBox[
+       StyleBox["\<\"foot\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], {3, 2}]}, {
+      {RGBColor[0.3901888, 0.47217200000000004`, 0.6600904], 
+       AbsoluteThickness[3], LineBox[{{6, 0}, {21, 0}}], InsetBox[
+        StyleBox["\<\"X\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], NCache[{Rational[27, 2], 2}, {13.5, 2}]]}, {
+       {GrayLevel[1], AbsoluteThickness[3], LineBox[{{20.9, 0.}, {21, 0}}]}, 
+       {RGBColor[0.3901888, 0.47217200000000004`, 0.6600904], 
+        AbsoluteThickness[3], LineBox[{{20., 0.5}, {21, 0}, {20., -0.5}}]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->{310, 125.},
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.8248809272759137`*^9}},
+ CellLabel->
+  "Out[346]=",ExpressionUUID->"77139f95-4f72-43f4-8382-37054740676f"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {
+     {RGBColor[0.3901888, 0.47217200000000004`, 0.6600904], AbsoluteThickness[
+      3], LineBox[{{0, 0}, {15, 0}}], InsetBox[
+       StyleBox["\<\"X*\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], NCache[{Rational[15, 2], 2}, {7.5, 2}]]}, {
+      {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+       LineBox[{{15, 0}, {15.5, -0.4}, {16., 0.4}, {16.5, -0.4}, {17., 0.4}, {
+         17.5, -0.4}, {18., 0.4}, {18.5, -0.4}, {19., 0.4}, {19.5, -0.4}, {20,
+          0}, {21, 0}}], InsetBox[
+        StyleBox["\<\"foot*\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], {18, 2}]}, {
+       {GrayLevel[1], AbsoluteThickness[3], LineBox[{{20.9, 0.}, {21, 0}}]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], AbsoluteThickness[3], 
+        LineBox[{{20., 0.5}, {21, 0}, {20., -0.5}}]}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->{310, 125.},
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{{3.8248739290613785`*^9, 3.8248739325968184`*^9}, 
+   3.824874019090289*^9, {3.8248740588982744`*^9, 3.8248740759294996`*^9}, {
+   3.824874108057804*^9, 3.8248741408683043`*^9}, 3.824875967587225*^9, 
+   3.824876010180131*^9, {3.8248765469195967`*^9, 3.8248765509167967`*^9}, 
+   3.824879514032404*^9, 3.8248795899370437`*^9, 3.8248797272304783`*^9, 
+   3.8248797594981833`*^9, 3.8248798139189253`*^9, {3.824880800446315*^9, 
+   3.824880807479578*^9}, {3.82488091888492*^9, 3.8248809272809153`*^9}},
+ CellLabel->
+  "Out[347]=",ExpressionUUID->"504de598-d049-4546-bb2f-cd62e7a416fa"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"assign", " ", "domain", " ", "sequences"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"T1", "=", "\"\<CTCCTC\>\""}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"T2", "=", "\"\<ACACAC\>\""}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"X", "=", "\"\<CTTCTACTTCATAAC\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"RA", "=", "\"\<CATTTCAACTAAACC\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"A", "=", "\"\<CATCTCATTCTAAAC\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"B", "=", "\"\<CTTACATTTCAACAC\>\""}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.641308587402625*^9, 3.6413085971085176`*^9}, {
+   3.6413093410906463`*^9, 3.6413093414128747`*^9}, {3.641309556159033*^9, 
+   3.64130960569615*^9}, {3.6414094349627075`*^9, 3.641409453394752*^9}, {
+   3.6414095034972086`*^9, 3.641409507499058*^9}, {3.6414358250722914`*^9, 
+   3.641435853015068*^9}, {3.641437592174858*^9, 3.641437620211717*^9}, {
+   3.641437708764385*^9, 3.641437711622408*^9}, {3.641520097623437*^9, 
+   3.6415200981547956`*^9}, 3.643222947891323*^9, {3.643223010993195*^9, 
+   3.6432230372038336`*^9}, {3.643224357118559*^9, 3.643224386736621*^9}, {
+   3.64323131444323*^9, 3.643231344209399*^9}, {3.643831468434098*^9, 
+   3.6438314689334497`*^9}, 3.769143924813081*^9, {3.8248330841837816`*^9, 
+   3.8248331145218487`*^9}, {3.824833226311467*^9, 3.824833256747487*^9}},
+ CellLabel->"In[60]:=",ExpressionUUID->"7a78cb15-17f0-4e42-b66e-f8cae798b458"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"assign", " ", "domain", " ", "colors"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"cl", "[", "\"\<X\>\"", "]"}], "=", 
+     RowBox[{"-", "1"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"cl", "[", "\"\<RA\>\"", "]"}], "=", "3"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"cl", "[", "\"\<A\>\"", "]"}], "=", "5"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"cl", "[", "\"\<B\>\"", "]"}], "=", "4"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.6414373434248214`*^9, 3.6414373999047885`*^9}, {
+   3.641437622229144*^9, 3.641437625421385*^9}, {3.6414376921856527`*^9, 
+   3.6414377038208675`*^9}, {3.641520100949774*^9, 3.6415201013640842`*^9}, {
+   3.64238588526723*^9, 3.6423859020541363`*^9}, {3.6432230437765265`*^9, 
+   3.6432230699951706`*^9}, {3.6432243923085823`*^9, 3.643224418405143*^9}, {
+   3.6432266330169754`*^9, 3.6432266499490185`*^9}, {3.6432313051216197`*^9, 
+   3.6432313082378173`*^9}, {3.643231351000227*^9, 3.6432313607791805`*^9}, {
+   3.643831477122238*^9, 3.6438314775685544`*^9}, 3.7691439297318163`*^9, {
+   3.769144132051613*^9, 3.769144151703854*^9}, {3.7691442656642513`*^9, 
+   3.7691443003671236`*^9}, {3.769144363510524*^9, 3.769144365946573*^9}, {
+   3.824833123213842*^9, 3.8248331538056498`*^9}, {3.8248332315071507`*^9, 
+   3.824833266690624*^9}},
+ CellLabel->"In[66]:=",ExpressionUUID->"a6d1eb8c-15b2-46e3-846f-f149f899dd4b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"define", " ", "strands", " ", "and", " ", "complexes"}], " ", 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"gateRAtoB", "=", "\"\<@90 RA( + ) @90 X*( + B ) @90 T2*\>\""}], 
+   ";"}]}]], "Input",
+ CellChangeTimes->{{3.641438901816681*^9, 3.6414389297054167`*^9}, {
+   3.641438996977025*^9, 3.641438998382019*^9}, {3.641439091217718*^9, 
+   3.641439094134799*^9}, {3.641439125394904*^9, 3.641439126260518*^9}, {
+   3.6414391629565053`*^9, 3.6414391642353935`*^9}, {3.6414391976800613`*^9, 
+   3.641439199466325*^9}, {3.6414392451136284`*^9, 3.6414392539959145`*^9}, {
+   3.6414393076358957`*^9, 3.641439334694026*^9}, {3.6414393800421314`*^9, 
+   3.6414393811809416`*^9}, {3.641439437115507*^9, 3.6414394372576265`*^9}, 
+   3.641439490827538*^9, 3.642217229911244*^9, {3.642281587242359*^9, 
+   3.6422816075007997`*^9}, {3.642281710479205*^9, 3.6422817112307405`*^9}, {
+   3.642297809579129*^9, 3.6422978126723375`*^9}, {3.6423058869763803`*^9, 
+   3.6423059102069445`*^9}, {3.6423060380240755`*^9, 
+   3.6423060616238785`*^9}, {3.6423061711299305`*^9, 
+   3.6423062251564436`*^9}, {3.642395612013344*^9, 3.642395612830924*^9}, {
+   3.64322311510523*^9, 3.6432232081844378`*^9}, 3.6432232627992573`*^9, {
+   3.6432236823996415`*^9, 3.643223684475115*^9}, {3.6432260867855444`*^9, 
+   3.6432260958720074`*^9}, {3.6432264781678605`*^9, 
+   3.6432264784620705`*^9}, {3.6432279579471483`*^9, 
+   3.6432279852205424`*^9}, {3.643228815230774*^9, 3.6432288196619234`*^9}, {
+   3.6432290963466763`*^9, 3.6432290964767714`*^9}, {3.643229418978103*^9, 
+   3.6432294190781755`*^9}, {3.6432295811444263`*^9, 3.643229595545681*^9}, {
+   3.643229630080223*^9, 3.6432296605368805`*^9}, {3.6432297861321955`*^9, 
+   3.6432297868667135`*^9}, {3.6432298879336014`*^9, 
+   3.6432298888752584`*^9}, {3.643229931598634*^9, 3.6432299452863665`*^9}, {
+   3.643229976067258*^9, 3.6432299762884316`*^9}, {3.643231296862728*^9, 
+   3.6432313010837317`*^9}, {3.643231558734949*^9, 3.6432316193570576`*^9}, {
+   3.643232116566631*^9, 3.643232117117021*^9}, {3.643232891750408*^9, 
+   3.643232903259593*^9}, {3.643233006158764*^9, 3.643233008923732*^9}, {
+   3.643233855507781*^9, 3.6432338561182117`*^9}, 3.6438314358740826`*^9, {
+   3.76914394551874*^9, 3.7691440010472107`*^9}, {3.824833028064773*^9, 
+   3.8248330505275517`*^9}, {3.8248331620533557`*^9, 3.824833170982953*^9}, {
+   3.824833204078066*^9, 3.8248332057893066`*^9}, 3.8248332722757416`*^9},
+ CellLabel->"In[70]:=",ExpressionUUID->"d25a1229-3fb5-4540-9785-4f764e567a15"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"diagramDSD", "[", 
+  RowBox[{"gateRAtoB", ",", 
+   RowBox[{"SquiggleToehold", "\[Rule]", "True"}], ",", 
+   RowBox[{"LineBasepair", "\[Rule]", "True"}], ",", 
+   RowBox[{"DistinctComplement", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6415204738476715`*^9, 3.6415204739687653`*^9}, {
+   3.642222382412052*^9, 3.642222421011567*^9}, 3.642224097307465*^9, {
+   3.6423603887682753`*^9, 3.6423604153111053`*^9}, {3.6423871415774746`*^9, 
+   3.6423871484243155`*^9}, {3.642387934182731*^9, 3.6423879378813553`*^9}, {
+   3.6423879940242023`*^9, 3.6423879945825806`*^9}, {3.642388035046285*^9, 
+   3.6423880414608355`*^9}, {3.642388116145835*^9, 3.642388120246727*^9}, {
+   3.642388155200523*^9, 3.642388155416675*^9}, {3.642388265312636*^9, 
+   3.6423882668157034`*^9}, {3.6423890006652985`*^9, 3.642389007291998*^9}, {
+   3.6423890479038086`*^9, 3.6423890498201685`*^9}, {3.6423897378752737`*^9, 
+   3.6423897392102227`*^9}, {3.6423901102323465`*^9, 3.642390116185571*^9}, {
+   3.642390288501811*^9, 3.642390289014174*^9}, {3.6423904480259776`*^9, 
+   3.6423904897345667`*^9}, {3.642390743923888*^9, 3.642390748909444*^9}, {
+   3.642391173666748*^9, 3.6423911791886673`*^9}, 3.642391216174904*^9, 
+   3.6423918767115164`*^9, {3.64239269421145*^9, 3.6423927102528305`*^9}, {
+   3.6423939318794546`*^9, 3.642393939128598*^9}, {3.6423941843635674`*^9, 
+   3.6423941844936604`*^9}, {3.6423965085753684`*^9, 3.6423965340114126`*^9}, 
+   3.642396713313608*^9, {3.6423969964764843`*^9, 3.642396999856882*^9}, {
+   3.642397045176032*^9, 3.642397058419427*^9}, 3.6438320048082314`*^9, {
+   3.6438321663063803`*^9, 3.643832167515235*^9}, 3.6439505989910383`*^9, 
+   3.769144060591508*^9},
+ CellLabel->"In[71]:=",ExpressionUUID->"c1f3eb4e-c5ec-43c0-a829-f9f56d556476"],
+
+Cell[BoxData[
+ StyleBox[
+  GraphicsBox[{{}, {{{
+       {GrayLevel[0], LineBox[{{0.4, 0.5}, {1.6, 0.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 1.5}, {1.6, 1.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 2.5}, {1.6, 2.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 3.5}, {1.6, 3.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 4.5}, {1.6, 4.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 5.5}, {1.6, 5.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 6.5}, {1.6, 6.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 7.5}, {1.6, 7.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 8.5}, {1.6, 8.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 9.5}, {1.6, 9.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 10.5}, {1.6, 10.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 11.5}, {1.6, 11.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 12.5}, {1.6, 12.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 13.5}, {1.6, 13.5}}]}, 
+       {GrayLevel[0], LineBox[{{0.4, 14.5}, {1.6, 14.5}}]}}, 
+      {RGBColor[0.624866, 0.673302, 0.264296], AbsoluteThickness[3], 
+       LineBox[{{0, 0}, {0, 15}}], InsetBox[
+        StyleBox["\<\"RA\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], {-2.5, 7.5}]}, {
+       {GrayLevel[1], AbsoluteThickness[3], LineBox[{{0., 14.9}, {0, 15}}]}, 
+       {RGBColor[0.624866, 0.673302, 0.264296], AbsoluteThickness[3], 
+        LineBox[{{-0.5, 14.}, {0, 15}, {0.5, 14.}}]}}}, 
+     {RGBColor[0.624866, 0.673302, 0.264296], AbsoluteThickness[3], 
+      LineBox[{{2, 15}, {2, 0}}], InsetBox[
+       StyleBox["\<\"RA*\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], {5., 7.5}]}, {{
+       {GrayLevel[0], LineBox[{{2.5, -0.4}, {2.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{3.5, -0.4}, {3.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{4.5, -0.4}, {4.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{5.5, -0.4}, {5.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{6.5, -0.4}, {6.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{7.5, -0.4}, {7.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{8.5, -0.4}, {8.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{9.5, -0.4}, {9.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{10.5, -0.4}, {10.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{11.5, -0.4}, {11.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{12.5, -0.4}, {12.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{13.5, -0.4}, {13.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{14.5, -0.4}, {14.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{15.5, -0.4}, {15.5, -1.6}}]}, 
+       {GrayLevel[0], LineBox[{{16.5, -0.4}, {16.5, -1.6}}]}}, 
+      {GrayLevel[0], AbsoluteThickness[3], LineBox[{{2, 0}, {17, 0}}], 
+       InsetBox[
+        StyleBox["\<\"X*\"\>",
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->24,
+         FontColor->GrayLevel[0]], NCache[{Rational[19, 2], 2}, {9.5, 2}]]}, {
+       {GrayLevel[1], AbsoluteThickness[3], LineBox[{{16.9, 0.}, {17, 0}}]}, 
+       {GrayLevel[0], AbsoluteThickness[3], 
+        LineBox[{{16., 0.5}, {17, 0}, {16., -0.5}}]}}}, 
+     {RGBColor[0.8453409999999999, 0.6248695, 0.3151775], AbsoluteThickness[
+      3], LineBox[{{32, -2}, {17, -2}}], InsetBox[
+       StyleBox["\<\"B\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], NCache[{Rational[49, 2], -4}, {24.5, -4}]]}, 
+     {GrayLevel[0], AbsoluteThickness[3], LineBox[{{17, -2}, {2, -2}}], 
+      InsetBox[
+       StyleBox["\<\"X\"\>",
+        StripOnInput->False,
+        LineColor->GrayLevel[0],
+        FrontFaceColor->GrayLevel[0],
+        BackFaceColor->GrayLevel[0],
+        GraphicsColor->GrayLevel[0],
+        FontFamily->"Calibri",
+        FontSize->24,
+        FontColor->GrayLevel[0]], 
+       NCache[{Rational[19, 2], -4}, {9.5, -4}]]}, {{$CellContext`cl["T2"], 
+       {AbsoluteThickness[3], 
+        LineBox[{{2, -2}, {1.6, -2.5}, {2.4, -3.}, {1.6, -3.5}, {2.4, -4.}, {
+          1.6, -4.5}, {2.4, -5.}, {1.6, -5.5}, {2.4, -6.}, {1.6, -6.5}, {
+          2, -7}, {2, -8}}], InsetBox[
+         StyleBox["\<\"T2*\"\>",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->24,
+          FontColor->GrayLevel[0]], {5., -5.}]}}, {
+       {GrayLevel[1], AbsoluteThickness[3], 
+        LineBox[{{2., -7.9}, {2, -8}}]}, {$CellContext`cl["T2"], 
+        {AbsoluteThickness[3], 
+         LineBox[{{2.5, -7.}, {2, -8}, {1.5, -7.}}]}}}}}},
+   ImageMargins->0,
+   ImagePadding->50,
+   ImageSize->{445., 330},
+   PlotRangePadding->None],
+  StripOnInput->False,
+  ScriptSizeMultipliers->1,
+  ImageSizeMultipliers->1]], "Output",
+ CellChangeTimes->{
+  3.7070713141498413`*^9, 3.769144013991649*^9, 3.769144061222066*^9, 
+   3.76914415795123*^9, {3.7691442817318735`*^9, 3.7691443047065935`*^9}, 
+   3.769144370031432*^9, 3.7691450190798063`*^9, 3.8248328805469627`*^9, 
+   3.8248329840930805`*^9, 3.8248739328903885`*^9},
+ CellLabel->"Out[71]=",ExpressionUUID->"29eb21d5-17f0-46f7-871e-614ed20082a5"]
+}, Open  ]]
+},
+WindowSize->{958, 988},
+WindowMargins->{{Automatic, -7}, {Automatic, 0}},
+ScriptSizeMultipliers->1,
+ImageSizeMultipliers->1,
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 238, 4, 34, "Text",ExpressionUUID->"295a0661-cca8-460f-a748-043d7f3ea284"],
+Cell[799, 26, 270, 5, 28, "Input",ExpressionUUID->"73a967e8-2476-481d-b9b8-da7a56807baa"],
+Cell[CellGroupData[{
+Cell[1094, 35, 6810, 167, 732, "Input",ExpressionUUID->"3a325858-e52a-4d48-aa0b-d75510876328"],
+Cell[7907, 204, 2003, 45, 142, "Output",ExpressionUUID->"5c289462-7441-4af3-afd8-9e6992d14ee6"],
+Cell[9913, 251, 2036, 44, 142, "Output",ExpressionUUID->"3369b88e-7e19-4410-89a5-758e20f897fc"],
+Cell[11952, 297, 4241, 82, 163, "Output",ExpressionUUID->"0f98d185-609a-4b78-b198-9886ef138b59"],
+Cell[16196, 381, 3226, 69, 223, "Output",ExpressionUUID->"8f2209ef-8537-4119-9377-fec9b1758307"],
+Cell[19425, 452, 3240, 69, 223, "Output",ExpressionUUID->"b6aa5d86-913e-4a82-9704-823638729b05"],
+Cell[22668, 523, 14088, 288, 285, "Output",ExpressionUUID->"e48263c0-ee04-4d27-9b9b-ecc33f71e846"],
+Cell[36759, 813, 4155, 81, 228, "Output",ExpressionUUID->"863068c8-c0aa-4644-9257-ad07be828633"],
+Cell[40917, 896, 4054, 75, 243, "Output",ExpressionUUID->"9414df9a-6a4f-4578-bcff-58fbd4daa5b5"],
+Cell[44974, 973, 2585, 57, 197, "Output",ExpressionUUID->"b9ecabf1-79c1-4544-a6ff-6d380e065822"],
+Cell[47562, 1032, 2079, 45, 142, "Output",ExpressionUUID->"77139f95-4f72-43f4-8382-37054740676f"],
+Cell[49644, 1079, 2081, 45, 142, "Output",ExpressionUUID->"504de598-d049-4546-bb2f-cd62e7a416fa"]
+}, Open  ]],
+Cell[51740, 1127, 1596, 32, 143, "Input",ExpressionUUID->"7a78cb15-17f0-4e42-b66e-f8cae798b458"],
+Cell[53339, 1161, 1557, 33, 105, "Input",ExpressionUUID->"a6d1eb8c-15b2-46e3-846f-f149f899dd4b"],
+Cell[54899, 1196, 2576, 39, 48, "Input",ExpressionUUID->"d25a1229-3fb5-4540-9785-4f764e567a15"],
+Cell[CellGroupData[{
+Cell[57500, 1239, 1796, 26, 28, "Input",ExpressionUUID->"c1f3eb4e-c5ec-43c0-a829-f9f56d556476"],
+Cell[59299, 1267, 5773, 124, 347, "Output",ExpressionUUID->"29eb21d5-17f0-46f7-871e-614ed20082a5"]
+}, Open  ]]
+}
+]
+*)
+

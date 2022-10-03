@@ -1,0 +1,4158 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    175598,       4150]
+NotebookOptionsPosition[    168413,       4020]
+NotebookOutlinePosition[    168757,       4035]
+CellTagsIndexPosition[    168714,       4032]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "BE/CS 196a Homework Assignment 1 \n",
+ StyleBox["Design a reconfigurable tile array", "Subtitle"]
+}], "Title",
+ CellChangeTimes->{{3.8182793113964434`*^9, 3.8182793240093365`*^9}, {
+   3.818279407651252*^9, 3.8182794531486425`*^9}, 3.818279675493853*^9, 
+   3.8182881577916727`*^9, {3.818631542952957*^9, 3.81863157747093*^9}, {
+   3.8186316279567137`*^9, 3.8186316645355997`*^9}, {3.8186317563953876`*^9, 
+   3.8186317648067365`*^9}},ExpressionUUID->"6328f97f-1c58-463c-b115-\
+221541918bd4"],
+
+Cell[CellGroupData[{
+
+Cell["Functions", "Section",
+ CellChangeTimes->{{3.6311549838202353`*^9, 3.631155023117483*^9}, {
+  3.660802505989648*^9, 3.660802556676217*^9}, {3.6925834226598005`*^9, 
+  3.6925834262040825`*^9}},ExpressionUUID->"04ff8c5c-0fde-41cb-97f9-\
+989792cf05f6"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"edgeColor", "=", 
+   RowBox[{"Flatten", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", "\n", "\t", 
+        RowBox[{
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"Lighter", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"ColorData", "[", "\"\<DarkRainbow\>\"", "]"}], "[", 
+              "i", "]"}], ",", "j"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"i", ",", "0", ",", 
+             RowBox[{"3", "/", "4"}], ",", 
+             RowBox[{"1", "/", "4"}]}], "}"}]}], "]"}], ",", "\n", "\t", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"Lighter", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"ColorData", "[", "\"\<DarkTerrain\>\"", "]"}], "[", 
+              "i", "]"}], ",", "j"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"i", ",", 
+             RowBox[{"1", "/", "4"}], ",", 
+             RowBox[{"3", "/", "4"}], ",", 
+             RowBox[{"1", "/", "2"}]}], "}"}]}], "]"}]}], "}"}], ",", "\n", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", "0", ",", "0.8", ",", "0.2"}], "}"}]}], "]"}], ",", 
+     "2"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"edgeColor", "=", 
+    RowBox[{"Append", "[", 
+     RowBox[{"edgeColor", ",", "Gray"}], "]"}]}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "the", " ", "last", " ", "color", " ", "is", " ", "used", " ", "for", " ", 
+    "edges", " ", "with", " ", "no", " ", "specific", " ", "identity"}], " ", 
+   "*)"}]}]}], "Code",
+ CellChangeTimes->{{3.8186340597270765`*^9, 3.818634060176264*^9}},
+ CellLabel->"In[86]:=",ExpressionUUID->"7f1b4e2d-117a-48d1-9d34-f62ca14f92fc"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"directedangle", "[", 
+    RowBox[{"a_", ",", "b_"}], "]"}], ":=", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Sign", "@", 
+       RowBox[{"Det", "[", 
+        RowBox[{"{", 
+         RowBox[{"a", ",", "b"}], "}"}], "]"}]}], "\[GreaterEqual]", "0"}], 
+     ",", 
+     RowBox[{"VectorAngle", "[", 
+      RowBox[{"a", ",", "b"}], "]"}], ",", 
+     RowBox[{
+      RowBox[{"2", "Pi"}], "-", 
+      RowBox[{"VectorAngle", "[", 
+       RowBox[{"a", ",", "b"}], "]"}]}]}], "]"}]}], ";"}]], "Code",
+ CellChangeTimes->{{3.6925941688326902`*^9, 3.692594174388976*^9}, {
+  3.6926719200638323`*^9, 3.6926719207625923`*^9}, {3.6926740939359117`*^9, 
+  3.6926740948005304`*^9}},
+ CellLabel->"In[88]:=",ExpressionUUID->"310ef093-4fac-426e-8fe0-fd20b0827947"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "tileAbstract", "]"}], "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"LabelSize", "\[Rule]", "0.2"}], ",", 
+     RowBox[{"pattern", "\[Rule]", "\"\<\>\""}], ",", 
+     RowBox[{"LineThickness", "\[Rule]", "3"}]}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"tileAbstract", "[", 
+     RowBox[{"edge_", ",", 
+      RowBox[{"OptionsPattern", "[", "]"}]}], "]"}], ":=", 
+    RowBox[{"Module", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "flatlist", ",", "list", ",", "i", ",", "pair", ",", "n", ",", "p1", 
+        ",", "p2", ",", "center", ",", "r", ",", "d1", ",", "d2"}], "}"}], 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"flatlist", "=", 
+        RowBox[{"StringSplit", "[", 
+         RowBox[{
+          RowBox[{"OptionValue", "[", "pattern", "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+           "\"\<(\>\"", ",", "\"\<)\>\"", ",", "\"\<,\>\"", ",", 
+            "\"\< \>\""}], "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"list", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"i", "=", "1"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{"i", "<=", 
+          RowBox[{"Length", "[", "flatlist", "]"}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"pair", "=", 
+           RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"n", "=", "4"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"While", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"i", "<", 
+              RowBox[{"Length", "[", "flatlist", "]"}]}], "&&", " ", 
+             RowBox[{
+              RowBox[{"StringLength", "[", 
+               RowBox[{"flatlist", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "]"}], "==", "0"}]}], " ", 
+            ",", 
+            RowBox[{"i", "++"}]}], "]"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"StringLength", "[", 
+              RowBox[{"flatlist", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], "]"}], "==", "0"}], ",", 
+            RowBox[{"Break", "[", "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"While", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"Length", "[", "pair", "]"}], "<", "n"}], " ", "||", 
+             " ", 
+             RowBox[{
+              RowBox[{"flatlist", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], "\[Equal]", "\"\<@\>\""}]}], 
+            ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"flatlist", "[", 
+                 RowBox[{"[", "i", "]"}], "]"}], "\[Equal]", "\"\<@\>\""}], 
+               ",", 
+               RowBox[{"n", "=", "6"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"AppendTo", "[", 
+                RowBox[{"pair", ",", 
+                 RowBox[{"ToExpression", "[", 
+                  RowBox[{"flatlist", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}], "]"}]}], "]"}]}], "]"}], 
+             ";", "\[IndentingNewLine]", 
+             RowBox[{"i", "++"}], ";", "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"i", ">", 
+                RowBox[{"Length", "[", "flatlist", "]"}]}], ",", 
+               RowBox[{"Break", "[", "]"}]}], "]"}], ";", 
+             "\[IndentingNewLine]", 
+             RowBox[{"While", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"i", "<", 
+                 RowBox[{"Length", "[", "flatlist", "]"}]}], " ", "&&", " ", 
+                RowBox[{
+                 RowBox[{"StringLength", "[", 
+                  RowBox[{"flatlist", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}], "]"}], "==", "0"}]}], " ", 
+               ",", 
+               RowBox[{"i", "++"}]}], "]"}]}]}], "\[IndentingNewLine]", "]"}],
+           ";", "\[IndentingNewLine]", 
+          RowBox[{"AppendTo", "[", 
+           RowBox[{"list", ",", "pair"}], "]"}]}]}], "\[IndentingNewLine]", 
+        "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Graphics", "[", 
+        RowBox[{
+         RowBox[{"{", "\n", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"White", ",", 
+             RowBox[{"Rectangle", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"-", "0.1"}], ",", 
+                 RowBox[{"-", "0.1"}]}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"1.1", ",", "1.1"}], "}"}]}], "]"}]}], "}"}], ",", 
+           "\n", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Lighter", "[", 
+              RowBox[{"Gray", ",", "0.5"}], "]"}], ",", 
+             RowBox[{"Rectangle", "[", "]"}]}], "}"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"AbsoluteThickness", "[", 
+                RowBox[{"OptionValue", "[", "LineThickness", "]"}], "]"}], 
+               ",", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Length", "[", 
+                   RowBox[{"list", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], "]"}], "\[Equal]", "4"}], 
+                 ",", "\[IndentingNewLine]", 
+                 RowBox[{"Line", "[", 
+                  RowBox[{"Partition", "[", 
+                   RowBox[{
+                    RowBox[{"list", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], ",", "2"}], "]"}], "]"}], 
+                 ",", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{"p1", ",", "p2", ",", "center"}], "}"}], "=", 
+                   RowBox[{"Partition", "[", 
+                    RowBox[{
+                    RowBox[{"list", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}], ",", "2"}], "]"}]}], ";", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"r", "=", 
+                   RowBox[{"EuclideanDistance", "[", 
+                    RowBox[{"center", ",", "p1"}], "]"}]}], ";", "\n", 
+                  RowBox[{"d1", "=", 
+                   RowBox[{"directedangle", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"1", ",", "0"}], "}"}], ",", 
+                    RowBox[{"p1", "-", "center"}]}], "]"}]}], ";", "\n", 
+                  RowBox[{"d2", "=", 
+                   RowBox[{"directedangle", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"1", ",", "0"}], "}"}], ",", 
+                    RowBox[{"p2", "-", "center"}]}], "]"}]}], ";", "\n", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{"d1", "<", "d2"}], ",", 
+                    RowBox[{"d2", "-=", 
+                    RowBox[{"2", "Pi"}]}]}], "]"}], ";", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"Circle", "[", 
+                   RowBox[{"center", ",", "r", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"d1", ",", "d2"}], "}"}]}], "]"}]}]}], "]"}]}], 
+              "}"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", "1", ",", 
+               RowBox[{"Length", "[", "list", "]"}]}], "}"}]}], "]"}], ",", 
+           "\n", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"OptionValue", "[", "pattern", "]"}], "==", 
+              "\"\<\>\""}], ",", "\n", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], "!=", "0"}], " ", "&&",
+                   " ", 
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "2"}], "]"}], "]"}], "==", "1"}]}], ",",
+                  " ", 
+                 RowBox[{"Text", "[", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", "Black", ",", 
+                    RowBox[{"FontSize", "->", 
+                    RowBox[{"Scaled", "[", 
+                    RowBox[{"OptionValue", "[", "LabelSize", "]"}], "]"}]}], 
+                    ",", 
+                    RowBox[{"FontFamily", "->", "\"\<Calibri\>\""}]}], "]"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.75"}], "}"}]}], "]"}]}], "]"}], 
+               ",", "\n", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], "!=", "0"}], " ", "&&",
+                   " ", 
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "2"}], "]"}], "]"}], "==", "2"}]}], ",",
+                  " ", 
+                 RowBox[{"Text", "[", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"SuperStar", "[", 
+                    RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], "]"}], ",", 
+                    "Black", ",", 
+                    RowBox[{"FontSize", "->", 
+                    RowBox[{"Scaled", "[", 
+                    RowBox[{"OptionValue", "[", "LabelSize", "]"}], "]"}]}], 
+                    ",", 
+                    RowBox[{"FontFamily", "->", "\"\<Calibri\>\""}]}], "]"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.75"}], "}"}]}], "]"}]}], "]"}], 
+               ",", "\n", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", "1"}], "]"}], "]"}], "!=", "0"}], " ", "&&",
+                   " ", 
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", "2"}], "]"}], "]"}], "==", "1"}]}], ",",
+                  " ", 
+                 RowBox[{"Text", "[", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", "1"}], "]"}], "]"}], ",", "Black", ",", 
+                    RowBox[{"FontSize", "->", 
+                    RowBox[{"Scaled", "[", 
+                    RowBox[{"OptionValue", "[", "LabelSize", "]"}], "]"}]}], 
+                    ",", 
+                    RowBox[{"FontFamily", "->", "\"\<Calibri\>\""}]}], "]"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"0.75", ",", "0.5"}], "}"}]}], "]"}]}], "]"}], 
+               ",", "\n", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", "1"}], "]"}], "]"}], "!=", "0"}], " ", "&&",
+                   " ", 
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", "2"}], "]"}], "]"}], "==", "2"}]}], ",",
+                  " ", 
+                 RowBox[{"Text", "[", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"SuperStar", "[", 
+                    RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", "1"}], "]"}], "]"}], "]"}], ",", 
+                    "Black", ",", 
+                    RowBox[{"FontSize", "->", 
+                    RowBox[{"Scaled", "[", 
+                    RowBox[{"OptionValue", "[", "LabelSize", "]"}], "]"}]}], 
+                    ",", 
+                    RowBox[{"FontFamily", "->", "\"\<Calibri\>\""}]}], "]"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"0.75", ",", "0.5"}], "}"}]}], "]"}]}], "]"}], 
+               ",", "\n", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"3", ",", "1"}], "]"}], "]"}], "!=", "0"}], " ", "&&",
+                   " ", 
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"3", ",", "2"}], "]"}], "]"}], "==", "1"}]}], ",",
+                  " ", 
+                 RowBox[{"Text", "[", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"3", ",", "1"}], "]"}], "]"}], ",", "Black", ",", 
+                    RowBox[{"FontSize", "->", 
+                    RowBox[{"Scaled", "[", 
+                    RowBox[{"OptionValue", "[", "LabelSize", "]"}], "]"}]}], 
+                    ",", 
+                    RowBox[{"FontFamily", "->", "\"\<Calibri\>\""}]}], "]"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.25"}], "}"}]}], "]"}]}], "]"}], 
+               ",", "\n", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"3", ",", "1"}], "]"}], "]"}], "!=", "0"}], " ", "&&",
+                   " ", 
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"3", ",", "2"}], "]"}], "]"}], "==", "2"}]}], ",",
+                  " ", 
+                 RowBox[{"Text", "[", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"SuperStar", "[", 
+                    RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"3", ",", "1"}], "]"}], "]"}], "]"}], ",", 
+                    "Black", ",", 
+                    RowBox[{"FontSize", "->", 
+                    RowBox[{"Scaled", "[", 
+                    RowBox[{"OptionValue", "[", "LabelSize", "]"}], "]"}]}], 
+                    ",", 
+                    RowBox[{"FontFamily", "->", "\"\<Calibri\>\""}]}], "]"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.25"}], "}"}]}], "]"}]}], "]"}], 
+               ",", "\n", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"4", ",", "1"}], "]"}], "]"}], "!=", "0"}], " ", "&&",
+                   " ", 
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"4", ",", "2"}], "]"}], "]"}], "==", "1"}]}], ",",
+                  " ", 
+                 RowBox[{"Text", "[", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"4", ",", "1"}], "]"}], "]"}], ",", "Black", ",", 
+                    RowBox[{"FontSize", "->", 
+                    RowBox[{"Scaled", "[", 
+                    RowBox[{"OptionValue", "[", "LabelSize", "]"}], "]"}]}], 
+                    ",", 
+                    RowBox[{"FontFamily", "->", "\"\<Calibri\>\""}]}], "]"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"0.25", ",", "0.5"}], "}"}]}], "]"}]}], "]"}], 
+               ",", "\n", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"4", ",", "1"}], "]"}], "]"}], "!=", "0"}], " ", "&&",
+                   " ", 
+                  RowBox[{
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"4", ",", "2"}], "]"}], "]"}], "==", "2"}]}], ",",
+                  " ", 
+                 RowBox[{"Text", "[", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"SuperStar", "[", 
+                    RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"4", ",", "1"}], "]"}], "]"}], "]"}], ",", 
+                    "Black", ",", 
+                    RowBox[{"FontSize", "->", 
+                    RowBox[{"Scaled", "[", 
+                    RowBox[{"OptionValue", "[", "LabelSize", "]"}], "]"}]}], 
+                    ",", 
+                    RowBox[{"FontFamily", "->", "\"\<Calibri\>\""}]}], "]"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"0.25", ",", "0.5"}], "}"}]}], "]"}]}], "]"}]}], 
+              "}"}]}], "]"}], ",", "\n", 
+           RowBox[{"Switch", "[", 
+            RowBox[{
+             RowBox[{"edge", "[", 
+              RowBox[{"[", 
+               RowBox[{"1", ",", "2"}], "]"}], "]"}], ",", "\n", "\t", "0", 
+             ",", " ", 
+             RowBox[{"{", "}"}], ",", "\n", "\t", "1", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"edgeColor", "[", 
+                RowBox[{"[", 
+                 RowBox[{"edge", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"1", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+               RowBox[{"Polygon", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0.4", ",", "0.9"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0.6", ",", "0.9"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0.5", ",", "1.1"}], "}"}]}], "}"}], "]"}]}], 
+              "}"}], ",", "\n", "\t", "2", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"edgeColor", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+                 RowBox[{"Polygon", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0.4", ",", "1.05"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.6", ",", "1.05"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.85"}], "}"}]}], "}"}], "]"}]}], 
+                "}"}], ",", "\n", "\t\t", 
+               RowBox[{"{", 
+                RowBox[{"White", ",", 
+                 RowBox[{"Polygon", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0.4", ",", "1.1"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.6", ",", "1.1"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.9"}], "}"}]}], "}"}], "]"}]}], 
+                "}"}]}], "}"}], ",", "\n", "\t", "3", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"Rectangle", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"0.4", ",", "0.95"}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"0.6", ",", "1.05"}], "}"}]}], "]"}], "}"}]}], "]"}],
+            ",", "\n", 
+           RowBox[{"Switch", "[", 
+            RowBox[{
+             RowBox[{"edge", "[", 
+              RowBox[{"[", 
+               RowBox[{"2", ",", "2"}], "]"}], "]"}], ",", "\n", "\t", "0", 
+             ",", " ", 
+             RowBox[{"{", "}"}], ",", "\n", "\t", "1", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"edgeColor", "[", 
+                RowBox[{"[", 
+                 RowBox[{"edge", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"2", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+               RowBox[{"Polygon", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0.9", ",", "0.4"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0.9", ",", "0.6"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"1.1", ",", "0.5"}], "}"}]}], "}"}], "]"}]}], 
+              "}"}], ",", "\n", "\t", "2", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"edgeColor", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+                 RowBox[{"Polygon", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"1.05", ",", "0.4"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"1.05", ",", "0.6"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.85", ",", "0.5"}], "}"}]}], "}"}], "]"}]}], 
+                "}"}], ",", "\n", "\t\t", 
+               RowBox[{"{", 
+                RowBox[{"White", ",", 
+                 RowBox[{"Polygon", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"1.1", ",", "0.4"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"1.1", ",", "0.6"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.9", ",", "0.5"}], "}"}]}], "}"}], "]"}]}], 
+                "}"}]}], "}"}], ",", "\n", "\t", "3", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"Rectangle", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"0.95", ",", "0.4"}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"1.05", ",", "0.6"}], "}"}]}], "]"}], "}"}]}], "]"}],
+            ",", "\n", 
+           RowBox[{"Switch", "[", 
+            RowBox[{
+             RowBox[{"edge", "[", 
+              RowBox[{"[", 
+               RowBox[{"3", ",", "2"}], "]"}], "]"}], ",", "\n", "\t", "0", 
+             ",", " ", 
+             RowBox[{"{", "}"}], ",", "\n", "\t", "1", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"edgeColor", "[", 
+                RowBox[{"[", 
+                 RowBox[{"edge", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"3", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+               RowBox[{"Polygon", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0.4", ",", "0.1"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0.6", ",", "0.1"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0.5", ",", 
+                    RowBox[{"-", "0.1"}]}], "}"}]}], "}"}], "]"}]}], "}"}], 
+             ",", "\n", "\t", "2", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"edgeColor", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"3", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+                 RowBox[{"Polygon", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0.4", ",", 
+                    RowBox[{"-", "0.05"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.6", ",", 
+                    RowBox[{"-", "0.05"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.15"}], "}"}]}], "}"}], "]"}]}], 
+                "}"}], ",", "\n", "\t\t", 
+               RowBox[{"{", 
+                RowBox[{"White", ",", 
+                 RowBox[{"Polygon", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0.4", ",", 
+                    RowBox[{"-", "0.1"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.6", ",", 
+                    RowBox[{"-", "0.1"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.5", ",", "0.1"}], "}"}]}], "}"}], "]"}]}], 
+                "}"}]}], "}"}], ",", "\n", "\t", "3", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"Rectangle", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"0.4", ",", 
+                  RowBox[{"-", "0.05"}]}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"0.6", ",", "0.05"}], "}"}]}], "]"}], "}"}]}], "]"}],
+            ",", "\n", 
+           RowBox[{"Switch", "[", 
+            RowBox[{
+             RowBox[{"edge", "[", 
+              RowBox[{"[", 
+               RowBox[{"4", ",", "2"}], "]"}], "]"}], ",", "\n", "\t", "0", 
+             ",", " ", 
+             RowBox[{"{", "}"}], ",", "\n", "\t", "1", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"edgeColor", "[", 
+                RowBox[{"[", 
+                 RowBox[{"edge", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"4", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+               RowBox[{"Polygon", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0.1", ",", "0.4"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0.1", ",", "0.6"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "0.1"}], ",", "0.5"}], "}"}]}], "}"}], 
+                "]"}]}], "}"}], ",", "\n", "\t", "2", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"edgeColor", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"edge", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"4", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+                 RowBox[{"Polygon", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "0.05"}], ",", "0.4"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "0.05"}], ",", "0.6"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.15", ",", "0.5"}], "}"}]}], "}"}], "]"}]}], 
+                "}"}], ",", "\n", "\t\t", 
+               RowBox[{"{", 
+                RowBox[{"White", ",", 
+                 RowBox[{"Polygon", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "0.1"}], ",", "0.4"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "0.1"}], ",", "0.6"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.1", ",", "0.5"}], "}"}]}], "}"}], "]"}]}], 
+                "}"}]}], "}"}], ",", "\n", "\t", "3", ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"Rectangle", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"-", "0.05"}], ",", "0.4"}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"0.05", ",", "0.6"}], "}"}]}], "]"}], "}"}]}], 
+            "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"ImagePadding", "\[Rule]", "0"}], ",", 
+         RowBox[{"PlotRangePadding", "\[Rule]", "0"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]}]}], "]"}]}], ";"}],
+   " "}]}], "Code",
+ CellChangeTimes->{{3.8186233674272757`*^9, 3.818623406839529*^9}, {
+  3.818623460395447*^9, 3.8186234632584934`*^9}, {3.8186235568159714`*^9, 
+  3.818623561720093*^9}, {3.8186236200543733`*^9, 3.81862363594446*^9}, {
+  3.818623939210832*^9, 3.81862394750674*^9}, {3.8186239790579047`*^9, 
+  3.818623982119074*^9}, {3.818624196010953*^9, 3.818624207872181*^9}, {
+  3.8186242494930296`*^9, 3.8186242851429553`*^9}, {3.8186251327545176`*^9, 
+  3.8186252028341856`*^9}, {3.818625386799008*^9, 3.8186254285167027`*^9}, {
+  3.8186254900880055`*^9, 3.818625502248398*^9}, {3.8186379855895576`*^9, 
+  3.818638051572303*^9}, {3.8186380866421795`*^9, 3.8186380982112885`*^9}},
+ CellLabel->"In[89]:=",ExpressionUUID->"3308092c-5db1-4aed-a866-f766da82ba48"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Define tiles", "Section",
+ CellChangeTimes->{{3.6311550271347127`*^9, 3.631155054608284*^9}, {
+  3.6926329560797863`*^9, 3.6926329868124404`*^9}, {3.818623678894953*^9, 
+  3.81862368020012*^9}},ExpressionUUID->"07443fca-1734-460c-a15c-\
+28d1d3aed705"],
+
+Cell["\<\
+Use tileAbstract to define a square tile:
+tilename = tileAbstract[edges]
+edges = {edge 1, edge 2, edge 3, edge 4}
+   edge i = {x, y}
+   x = edge identity number
+   y = 0 (non-interactive), 1 (giving), or 2 (receiving)\
+\>", "Text",
+ CellChangeTimes->{{3.6926296278267813`*^9, 3.6926296710406427`*^9}, {
+  3.6926297026635475`*^9, 3.692629772365264*^9}, {3.6926298105962048`*^9, 
+  3.6926298186258593`*^9}, {3.6926298624538603`*^9, 3.6926298800506268`*^9}, {
+  3.6926299275123854`*^9, 3.6926300116772985`*^9}, {3.6926301964892464`*^9, 
+  3.6926301990095663`*^9}, {3.6926748270901747`*^9, 3.6926748437190886`*^9}, {
+  3.6926748919091215`*^9, 3.692674936054927*^9}, {3.692674981394339*^9, 
+  3.692674987022787*^9}, {3.692675099644062*^9, 3.692675394364194*^9}, {
+  3.81862438732372*^9, 3.8186243932411013`*^9}, {3.8186244492339306`*^9, 
+  3.8186244821698413`*^9}, {3.8186245359946785`*^9, 3.8186245385765533`*^9}},
+ Background->RGBColor[
+  1, 0.9, 0.8],ExpressionUUID->"abdf5e49-f2e8-4204-aa49-4078221a0e00"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile1", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "1"}], "}"}]}], "}"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186236942125826`*^9, 3.818623718497653*^9}, {
+   3.8186238607324963`*^9, 3.8186238899359264`*^9}, {3.818624076265066*^9, 
+   3.8186240767846603`*^9}, {3.8186245273160295`*^9, 3.818624544439024*^9}, {
+   3.8186246473732386`*^9, 3.818624679724553*^9}, {3.8186252310581264`*^9, 
+   3.8186252340495567`*^9}, {3.818625320261674*^9, 3.8186253495359144`*^9}, {
+   3.81862544195512*^9, 3.818625445748234*^9}, 3.8186255198453274`*^9, {
+   3.818625574465597*^9, 3.8186255760377417`*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"1ab54558-e9bf-4ab6-949c-047e22af15c1"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+     StyleBox["1",
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+     StyleBox["2",
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.5, 0.25}], InsetBox[
+     StyleBox["1",
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.25, 0.5}]}, {}, 
+   {RGBColor[0.237736, 0.340215, 0.575113], 
+    PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+   {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+    PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+   {RGBColor[0.237736, 0.340215, 0.575113], 
+    PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{
+  3.818623890668271*^9, 3.8186241296648936`*^9, {3.8186242637326202`*^9, 
+   3.818624289072734*^9}, {3.818624527903599*^9, 3.8186245449099007`*^9}, 
+   3.818624680456979*^9, {3.818625228498366*^9, 3.8186252348981843`*^9}, {
+   3.818625320677839*^9, 3.8186253502203884`*^9}, 3.818625395399897*^9, {
+   3.818625433641952*^9, 3.818625446511406*^9}, {3.8186255157526417`*^9, 
+   3.8186255203838987`*^9}, 3.8186255770546494`*^9, 3.818631186791402*^9, 
+   3.81863399640361*^9, 3.818634480452293*^9, {3.818638075989639*^9, 
+   3.8186381034215994`*^9}, 3.818638203667785*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"6d83c352-6854-439c-8a23-7f4ee323309e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile2", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1", ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"3", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"3", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"3", ",", "1"}], "}"}]}], "}"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186236942125826`*^9, 3.818623718497653*^9}, {
+  3.8186238607324963`*^9, 3.8186238899359264`*^9}, {3.818624076265066*^9, 
+  3.8186240767846603`*^9}, {3.8186245273160295`*^9, 3.818624544439024*^9}, {
+  3.8186246473732386`*^9, 3.818624723161542*^9}, {3.818625009003621*^9, 
+  3.8186250240302916`*^9}, {3.8186255796919456`*^9, 3.8186255800617523`*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"96fc4d6f-96a2-4e7c-b226-791f4f104067"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+     StyleBox[
+      SuperscriptBox["1", "*"],
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.5, 0.75}], InsetBox[
+     StyleBox["3",
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+     StyleBox["3",
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.5, 0.25}], InsetBox[
+     StyleBox["3",
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.25, 0.5}]}, {
+    {RGBColor[0.237736, 0.340215, 0.575113], 
+     PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+    {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{
+  3.81862472379374*^9, 3.8186250244621024`*^9, {3.81862556658805*^9, 
+   3.8186255806312284`*^9}, 3.8186311868604417`*^9, 3.8186339965194683`*^9, 
+   3.8186344805835295`*^9, 3.8186381095020685`*^9, 3.8186382037525067`*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"78a472ad-ac24-4304-8691-9e293ca4e94b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile3", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2", ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"3", ",", "1"}], "}"}]}], "}"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186236942125826`*^9, 3.818623718497653*^9}, {
+  3.8186238607324963`*^9, 3.8186238899359264`*^9}, {3.818624076265066*^9, 
+  3.8186240767846603`*^9}, {3.8186245273160295`*^9, 3.818624544439024*^9}, {
+  3.8186246473732386`*^9, 3.818624734216047*^9}, {3.8186247832410984`*^9, 
+  3.8186247914594707`*^9}, {3.8186250460205784`*^9, 3.818625057143238*^9}, {
+  3.8186255831362906`*^9, 3.8186255835842643`*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"e3e56594-03a4-4599-90ca-59b458a1dd77"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+     StyleBox[
+      SuperscriptBox["2", "*"],
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+     StyleBox["3",
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.25, 0.5}]}, {}, {
+    {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+     PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+    {GrayLevel[1], PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, {}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{
+  3.818624791856519*^9, 3.8186250576440463`*^9, {3.8186255688236437`*^9, 
+   3.8186255841070013`*^9}, 3.8186311869763174`*^9, 3.81863399663533*^9, 
+   3.818634480721554*^9, 3.818638139622803*^9, 3.8186382046858387`*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"7b858d84-0897-496b-b28c-e2ba35481a74"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile4", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"3", ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186236942125826`*^9, 3.818623718497653*^9}, {
+   3.8186238607324963`*^9, 3.8186238899359264`*^9}, {3.818624076265066*^9, 
+   3.8186240767846603`*^9}, {3.8186245273160295`*^9, 3.818624544439024*^9}, {
+   3.8186246473732386`*^9, 3.818624734216047*^9}, {3.8186247832410984`*^9, 
+   3.8186247914594707`*^9}, {3.818624929365642*^9, 3.8186249366254005`*^9}, 
+   3.818625069680456*^9, {3.818625586326044*^9, 3.8186255868113656`*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"a49afd86-bb3e-47e4-8926-f72c1c91e650"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+    StyleBox[
+     SuperscriptBox["3", "*"],
+     StripOnInput->False,
+     LineColor->GrayLevel[0],
+     FrontFaceColor->GrayLevel[0],
+     BackFaceColor->GrayLevel[0],
+     GraphicsColor->GrayLevel[0],
+     FontFamily->"Calibri",
+     FontSize->Scaled[0.2],
+     FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+    {RGBColor[0.624866, 0.673302, 0.264296], 
+     PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+    {GrayLevel[1], PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{3.818625072230033*^9, 3.8186255874133873`*^9, 
+  3.8186311870921774`*^9, 3.818633996788948*^9, 3.8186344808374443`*^9, 
+  3.8186382048239083`*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"6779c832-107f-4d0f-9334-1523d39131f5"]
+}, Open  ]],
+
+Cell["\<\
+Use Export to save your design as a .png file (or .jpg, .eps, .svg, etc). \
+\>", "Text",
+ CellChangeTimes->{{3.6926296278267813`*^9, 3.6926296710406427`*^9}, {
+   3.6926297026635475`*^9, 3.692629772365264*^9}, 3.6926298489871387`*^9, {
+   3.692631792439209*^9, 3.692631811477079*^9}, {3.692631850427128*^9, 
+   3.692631861821585*^9}, {3.6926319113491697`*^9, 3.692631929859763*^9}, {
+   3.692632183548977*^9, 3.692632190784181*^9}, {3.692632227417985*^9, 
+   3.6926322502327814`*^9}, {3.8186264465256042`*^9, 3.818626485879161*^9}, {
+   3.8186310857372665`*^9, 3.8186310946536484`*^9}},
+ Background->RGBColor[
+  1, 0.9, 0.8],ExpressionUUID->"6994b0e3-ced5-4fb7-b719-2377e119550a"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile1.png\>\"", ",", "tile1"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile2.png\>\"", ",", "tile2"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile3.png\>\"", ",", "tile3"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile4.png\>\"", ",", "tile4"}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.642959125426168*^9, 3.642959155466256*^9}, {
+   3.660801815913434*^9, 3.660801823790331*^9}, 3.660802200399515*^9, {
+   3.6926322591662626`*^9, 3.6926322620063124`*^9}, {3.6926322943174367`*^9, 
+   3.6926322944973955`*^9}, {3.6926754834729333`*^9, 
+   3.6926754842654147`*^9}, {3.818630428890687*^9, 3.8186304430812454`*^9}, {
+   3.818631102800626*^9, 3.818631117428472*^9}},
+ CellLabel->"In[15]:=",ExpressionUUID->"233ad19f-aa74-4381-9136-7568d3b0f084"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Define a tile array", "Section",
+ CellChangeTimes->{{3.6311550271347127`*^9, 3.631155054608284*^9}, {
+  3.6926329560797863`*^9, 3.6926329868124404`*^9}, {3.818623678894953*^9, 
+  3.81862368020012*^9}, {3.8186260843688784`*^9, 
+  3.8186261073789577`*^9}},ExpressionUUID->"488e527d-8cb1-4a3b-9884-\
+351e0994b1f8"],
+
+Cell["\<\
+Use Grid to display an array of tiles, and use Rotate to reorient tiles if \
+needed.\
+\>", "Text",
+ CellChangeTimes->{{3.6926296278267813`*^9, 3.6926296710406427`*^9}, {
+   3.6926297026635475`*^9, 3.692629772365264*^9}, 3.6926298489871387`*^9, {
+   3.692631792439209*^9, 3.692631811477079*^9}, {3.692631850427128*^9, 
+   3.692631861821585*^9}, {3.6926319113491697`*^9, 3.692631929859763*^9}, {
+   3.692632183548977*^9, 3.692632190784181*^9}, {3.692632227417985*^9, 
+   3.6926322502327814`*^9}, {3.8186264465256042`*^9, 3.818626485879161*^9}, {
+   3.8186313182082295`*^9, 3.818631421673865*^9}},
+ Background->RGBColor[
+  1, 0.9, 0.8],ExpressionUUID->"91504651-3eac-46c8-b10f-c81f77edf3eb"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tileArray", "=", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", "tile4", ",", "\"\<\>\"", ",", "tile4"}], 
+       "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile2", ",", 
+          RowBox[{
+           RowBox[{"-", "90"}], "Degree"}]}], "]"}], ",", "tile1", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile2", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4", ",", 
+          RowBox[{
+           RowBox[{"-", "90"}], "Degree"}]}], "]"}]}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile3", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}]}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", "\"\<\>\"", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}]}], "}"}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Spacings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.818625552607139*^9, 3.8186255532086115`*^9}, {
+   3.818625591097992*^9, 3.818625596476921*^9}, {3.8186256353402553`*^9, 
+   3.8186256539827323`*^9}, {3.8186256869445915`*^9, 3.818626056331636*^9}, {
+   3.818630433499631*^9, 3.8186304356354303`*^9}, 3.8186314736441097`*^9},
+ CellLabel->"In[20]:=",ExpressionUUID->"057d9def-b2c2-4f12-8e49-9ae310c99ec4"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"\"\>", 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+        StyleBox[
+         SuperscriptBox["3", "*"],
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->Scaled[0.2],
+         FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+        {GrayLevel[1], 
+         PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], "\<\"\"\>", 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+        StyleBox[
+         SuperscriptBox["3", "*"],
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->Scaled[0.2],
+         FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+        {GrayLevel[1], 
+         PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], ""},
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+          StyleBox[
+           SuperscriptBox["1", "*"],
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.5, 0.75}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.5, 0.25}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.25, 0.5}]}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`], 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+         StyleBox["1",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+         StyleBox["2",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], InsetBox[
+         StyleBox["1",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.25, 0.5}]}, {}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+       {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+        PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+          StyleBox[
+           SuperscriptBox["1", "*"],
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.5, 0.75}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.5, 0.25}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.25, 0.5}]}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`]},
+    {"\<\"\"\>", 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+          StyleBox[
+           SuperscriptBox["2", "*"],
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.25, 0.5}]}, {}, {
+         {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+          PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, {}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], ""},
+    {"\<\"\"\>", "\<\"\"\>", 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], "", ""}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{{3.8186257860458894`*^9, 3.8186258577906055`*^9}, {
+   3.818625889376855*^9, 3.818625962815652*^9}, {3.818625994165374*^9, 
+   3.818626056754257*^9}, 3.818631188515687*^9, 3.818633998062808*^9, 
+   3.8186344825238237`*^9, 3.818638206574996*^9},
+ CellLabel->"Out[20]=",ExpressionUUID->"fccf9041-fea9-4b62-a55c-21e3ed129619"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tileArray.png\>\"", ",", "tileArray"}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.642959125426168*^9, 3.642959155466256*^9}, {
+   3.660801815913434*^9, 3.660801823790331*^9}, 3.660802200399515*^9, {
+   3.6926322591662626`*^9, 3.6926322620063124`*^9}, {3.6926322943174367`*^9, 
+   3.6926322944973955`*^9}, {3.6926754834729333`*^9, 
+   3.6926754842654147`*^9}, {3.818630428890687*^9, 3.8186304430812454`*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"e719b217-49b5-47f2-b1f9-226149ebc42b"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Define patterns on tiles", "Section",
+ CellChangeTimes->{{3.6311550271347127`*^9, 3.631155054608284*^9}, {
+  3.6926329560797863`*^9, 3.6926329868124404`*^9}, {3.818626127547161*^9, 
+  3.8186261290513816`*^9}},ExpressionUUID->"118206d3-da99-4aac-883d-\
+68d387a17bad"],
+
+Cell[TextData[{
+ "Use option pattern to define a pattern on a square tile:\ntilename = \
+tileAbstract[edges, pattern\[Rule]\[OpenCurlyDoubleQuote]((x1, y1), (x2, y2)) \
+@ (cx, cy), ...\[CloseCurlyDoubleQuote]]\n(x1, y1) and (x2, y2) define the \
+start and end points of a line. \nThe bottom left, top left, top right and \
+bottom right corners of the square are (0, 0), (0, 1), (1, 1) and (1, 0), \
+respectively.\n(cx, cy) defines the center of an arc, ",
+ StyleBox["clockwise",
+  FontWeight->"Bold"],
+ " connecting the start point to the end point.\nWhen @ is missing, the \
+points are connected by a straight line. "
+}], "Text",
+ CellChangeTimes->{{3.6926296278267813`*^9, 3.6926296710406427`*^9}, {
+  3.6926297026635475`*^9, 3.692629772365264*^9}, {3.6926298105962048`*^9, 
+  3.6926298186258593`*^9}, {3.6926298624538603`*^9, 3.6926298800506268`*^9}, {
+  3.6926299275123854`*^9, 3.6926300116772985`*^9}, {3.6926301964892464`*^9, 
+  3.6926301990095663`*^9}, {3.6926748270901747`*^9, 3.6926748437190886`*^9}, {
+  3.6926748919091215`*^9, 3.692674936054927*^9}, {3.692674981394339*^9, 
+  3.692674987022787*^9}, {3.692675099644062*^9, 3.692675394364194*^9}, {
+  3.8186261919563403`*^9, 3.8186262282218266`*^9}, {3.8186262792126207`*^9, 
+  3.818626294353847*^9}, {3.818626551791097*^9, 3.8186265521140547`*^9}, {
+  3.818629638804099*^9, 3.818629647364036*^9}, {3.818629683049363*^9, 
+  3.8186296975123405`*^9}},
+ Background->RGBColor[
+  1, 0.9, 0.8],ExpressionUUID->"45a0680f-9bca-47c5-bef4-4bb84b5b413b"],
+
+Cell["\<\
+Option LineThickness may be used to change the thickness of lines shown. The \
+default thickness is 3. \
+\>", "Text",
+ CellChangeTimes->{{3.6926296278267813`*^9, 3.6926296710406427`*^9}, {
+   3.6926297026635475`*^9, 3.692629772365264*^9}, 3.6926298489871387`*^9, {
+   3.692631792439209*^9, 3.692631811477079*^9}, {3.692631850427128*^9, 
+   3.692631861821585*^9}, {3.818626371318653*^9, 3.8186263732053566`*^9}, {
+   3.818629679411451*^9, 3.8186297101508985`*^9}},
+ Background->RGBColor[
+  1, 0.9, 0.8],ExpressionUUID->"0de5b91c-74ac-47b0-bd0c-e7b5c1647ae9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile1p", "=", "\[IndentingNewLine]", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"2", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "1"}], "}"}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+    "pattern", "\[Rule]", 
+     "\"\<((0,1/3),(1/3,1/3)),((1/3,1/3),(2/3,0))@(1/3,0),((1/3,0),(1,2/3))@(\
+1,0),((0,2/3),(1/3,2/3)),((1/3,2/3),(1/2,1/2))@(1/3,1/2),((2/3,1/3),(1/2,1/2))\
+@(2/3,1/2),((2/3,1/3),(1,1/3))\>\""}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186236942125826`*^9, 3.818623718497653*^9}, 
+   3.8186238607324963`*^9, {3.8186241020718265`*^9, 3.818624105469181*^9}, {
+   3.818624321755834*^9, 3.818624326631721*^9}, {3.818626249218862*^9, 
+   3.8186262724909606`*^9}, 3.8186268277048197`*^9, {3.818626877673395*^9, 
+   3.818626878822254*^9}, {3.818627118269052*^9, 3.818627160221861*^9}, {
+   3.818627192204814*^9, 3.818627287070362*^9}, {3.8186273182593665`*^9, 
+   3.818627473037694*^9}, {3.818627652823955*^9, 3.818627738455576*^9}, {
+   3.8186277864915233`*^9, 3.8186278536526537`*^9}, {3.818627898300613*^9, 
+   3.818627933322694*^9}, 3.8186280948110657`*^9, {3.8186281330933747`*^9, 
+   3.81862818622022*^9}, {3.81862822056483*^9, 3.8186282228381753`*^9}, {
+   3.8186282825749025`*^9, 3.8186283146351213`*^9}, {3.8186286615288363`*^9, 
+   3.818628761791607*^9}, {3.8186293524989405`*^9, 3.818629462535142*^9}, {
+   3.8186295473154306`*^9, 3.8186295497220736`*^9}, 3.8186305798256254`*^9, {
+   3.8186474741391773`*^9, 3.818647503764344*^9}},
+ CellLabel->
+  "In[104]:=",ExpressionUUID->"1d01ef5d-7c27-498f-82f1-fcaa8f43e636"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+    {AbsoluteThickness[3], 
+     LineBox[NCache[{{0, Rational[1, 3]}, {
+        Rational[1, 3], Rational[1, 3]}}, {{0, 0.3333333333333333}, {
+        0.3333333333333333, 0.3333333333333333}}]]}, 
+    {AbsoluteThickness[3], 
+     CircleBox[NCache[{Rational[1, 3], 0}, {0.3333333333333333, 0}], NCache[
+      Rational[1, 3], 0.3333333333333333], 
+      NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+    {AbsoluteThickness[3], 
+     CircleBox[{1, 0}, NCache[Rational[2, 3], 0.6666666666666666], 
+      NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+       1.5707963267948966`}]]}, 
+    {AbsoluteThickness[3], 
+     LineBox[NCache[{{0, Rational[2, 3]}, {
+        Rational[1, 3], Rational[2, 3]}}, {{0, 0.6666666666666666}, {
+        0.3333333333333333, 0.6666666666666666}}]]}, 
+    {AbsoluteThickness[3], 
+     CircleBox[
+      NCache[{Rational[1, 3], Rational[1, 2]}, {0.3333333333333333, 0.5}], 
+      NCache[Rational[1, 6], 0.16666666666666666`], 
+      NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+    {AbsoluteThickness[3], 
+     CircleBox[
+      NCache[{Rational[2, 3], Rational[1, 2]}, {0.6666666666666666, 0.5}], 
+      NCache[Rational[1, 6], 0.16666666666666666`], 
+      NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+       3.141592653589793}]]}, 
+    {AbsoluteThickness[3], 
+     LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+        1, Rational[1, 3]}}, {{0.6666666666666666, 0.3333333333333333}, {
+        1, 0.3333333333333333}}]]}}, {}, 
+   {RGBColor[0.237736, 0.340215, 0.575113], 
+    PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+   {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+    PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+   {RGBColor[0.237736, 0.340215, 0.575113], 
+    PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{
+  3.8186241327045345`*^9, {3.8186242677130833`*^9, 3.818624291764995*^9}, 
+   3.818624330493128*^9, 3.8186263389877396`*^9, 3.8186268811326904`*^9, {
+   3.8186272342529697`*^9, 3.818627287550068*^9}, {3.8186273649735146`*^9, 
+   3.818627384006857*^9}, 3.818627474170125*^9, 3.8186276982554054`*^9, 
+   3.8186277388564863`*^9, {3.8186278255553284`*^9, 3.8186278542388372`*^9}, 
+   3.8186279341533318`*^9, 3.818628095559393*^9, 3.8186281350515423`*^9, 
+   3.8186281872438016`*^9, 3.818628223508173*^9, {3.8186282858032875`*^9, 
+   3.818628315204739*^9}, 3.818628679325694*^9, 3.8186287106022296`*^9, 
+   3.8186287634791493`*^9, 3.818629551656454*^9, 3.818630495414112*^9, 
+   3.818630581645011*^9, 3.8186311892138753`*^9, 3.8186339987484045`*^9, 
+   3.8186344835251436`*^9, 3.81863820743683*^9, 3.8186475074201264`*^9, 
+   3.818647989045354*^9},
+ CellLabel->
+  "Out[104]=",ExpressionUUID->"71bcec78-87f9-407d-9bc9-c391867e5d8c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile2p", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "1"}], "}"}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+    "pattern", "\[Rule]", 
+     "\"\<((0,1/3),(1/3,0))@(0,0),((2/3,0),(1,1/3))@(1,0),((1,2/3),(2/3,1))@(\
+1,1),((1/3,1),(0,1/3))@(0,1)\>\""}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.818630020473338*^9, 3.818630401686355*^9}, 
+   3.818630585236702*^9, {3.8186474357301955`*^9, 3.818647487734172*^9}, {
+   3.818647530184919*^9, 3.8186475576372213`*^9}, {3.8186476010506716`*^9, 
+   3.818647666830584*^9}},
+ CellLabel->
+  "In[105]:=",ExpressionUUID->"5a97ca3c-db65-4a20-aa11-a72b1b2c707e"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+    {AbsoluteThickness[3], 
+     CircleBox[{0, 0}, NCache[Rational[1, 3], 0.3333333333333333], 
+      NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+    {AbsoluteThickness[3], 
+     CircleBox[{1, 0}, NCache[Rational[1, 3], 0.3333333333333333], 
+      NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+       1.5707963267948966`}]]}, 
+    {AbsoluteThickness[3], 
+     CircleBox[{1, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+      NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+       3.141592653589793}]]}, 
+    {AbsoluteThickness[3], 
+     CircleBox[{0, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+      NCache[{0, Rational[-1, 2] Pi}, {0, -1.5707963267948966`}]]}}, {
+    {RGBColor[0.237736, 0.340215, 0.575113], 
+     PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+    {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{
+  3.8186276157722387`*^9, {3.8186300840106306`*^9, 3.8186301198739147`*^9}, 
+   3.8186301590290174`*^9, 3.81863019972231*^9, {3.8186302449922037`*^9, 
+   3.818630254446474*^9}, {3.818630295117917*^9, 3.8186303001072364`*^9}, {
+   3.818630337557802*^9, 3.818630402310162*^9}, 3.818630585699597*^9, 
+   3.8186311892516336`*^9, 3.8186339988693075`*^9, 3.81863448364101*^9, 
+   3.8186382075577345`*^9, {3.8186474413890505`*^9, 3.8186474882505894`*^9}, 
+   3.818647558261021*^9, 3.81864760253833*^9, {3.8186476332354484`*^9, 
+   3.818647667284457*^9}, 3.818647989166498*^9},
+ CellLabel->
+  "Out[105]=",ExpressionUUID->"0df5b133-486e-4744-836e-5755c92a8c01"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile3p", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"2", ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "1"}], "}"}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+    "pattern", "\[Rule]", "\"\<((0,2/3),(1,2/3)),((0,1/3),(1,1/3))\>\""}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186236942125826`*^9, 3.818623718497653*^9}, {
+   3.8186238607324963`*^9, 3.8186238899359264`*^9}, {3.818624076265066*^9, 
+   3.8186240767846603`*^9}, {3.8186245273160295`*^9, 3.818624544439024*^9}, {
+   3.8186246473732386`*^9, 3.818624734216047*^9}, {3.8186247832410984`*^9, 
+   3.8186247914594707`*^9}, {3.8186250460205784`*^9, 3.818625057143238*^9}, {
+   3.8186255831362906`*^9, 3.8186255835842643`*^9}, {3.818630623343175*^9, 
+   3.8186306303098326`*^9}, {3.818630818678481*^9, 3.8186308409169617`*^9}, 
+   3.818634191894003*^9, {3.818647673865056*^9, 3.8186476776501613`*^9}},
+ CellLabel->
+  "In[106]:=",ExpressionUUID->"0907bf60-0ccc-4c92-8773-8304fb605622"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+    {AbsoluteThickness[3], 
+     LineBox[NCache[{{0, Rational[2, 3]}, {1, Rational[2, 3]}}, {{
+        0, 0.6666666666666666}, {1, 0.6666666666666666}}]]}, 
+    {AbsoluteThickness[3], 
+     LineBox[NCache[{{0, Rational[1, 3]}, {1, Rational[1, 3]}}, {{
+        0, 0.3333333333333333}, {1, 0.3333333333333333}}]]}}, {}, {
+    {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+     PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+    {GrayLevel[1], PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, {}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{
+  3.818624791856519*^9, 3.8186250576440463`*^9, {3.8186255688236437`*^9, 
+   3.8186255841070013`*^9}, 3.818630631959587*^9, {3.818630828660777*^9, 
+   3.818630841564762*^9}, 3.8186311893519726`*^9, 3.8186339990263968`*^9, 
+   3.8186344838037667`*^9, 3.8186382077192135`*^9, 3.8186476784200373`*^9, 
+   3.818647989266775*^9},
+ CellLabel->
+  "Out[106]=",ExpressionUUID->"0726e3d9-479a-41af-867e-819111540518"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile4p", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}]}], "}"}], ",", 
+    RowBox[{
+    "pattern", "\[Rule]", 
+     "\"\<((1/3,0),(1/3,1/3)),((1/3,1/3),(2/3,1/3))@(1/2,1/3),((2/3,1/3),(2/3,\
+0))\>\""}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186236942125826`*^9, 3.818623718497653*^9}, {
+   3.8186238607324963`*^9, 3.8186238899359264`*^9}, {3.818624076265066*^9, 
+   3.8186240767846603`*^9}, {3.8186245273160295`*^9, 3.818624544439024*^9}, {
+   3.8186246473732386`*^9, 3.818624734216047*^9}, {3.8186247832410984`*^9, 
+   3.8186247914594707`*^9}, {3.818624929365642*^9, 3.8186249366254005`*^9}, 
+   3.818625069680456*^9, {3.818625586326044*^9, 3.8186255868113656`*^9}, {
+   3.8186306363835173`*^9, 3.81863072355157*^9}},
+ CellLabel->
+  "In[107]:=",ExpressionUUID->"30ad008f-d82f-4ab9-9688-1da7b76eea8f"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+    {AbsoluteThickness[3], 
+     LineBox[NCache[{{Rational[1, 3], 0}, {
+        Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+        0.3333333333333333, 0.3333333333333333}}]]}, 
+    {AbsoluteThickness[3], 
+     CircleBox[
+      NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 0.3333333333333333}], 
+      NCache[Rational[1, 6], 0.16666666666666666`], 
+      NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+    {AbsoluteThickness[3], 
+     LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+        Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+        0.6666666666666666, 0}}]]}}, {}, {}, {
+    {RGBColor[0.624866, 0.673302, 0.264296], 
+     PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+    {GrayLevel[1], PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{
+  3.818625072230033*^9, 3.8186255874133873`*^9, {3.818630662054595*^9, 
+   3.8186307239295654`*^9}, 3.8186311894033127`*^9, 3.8186339991957335`*^9, 
+   3.8186344839040966`*^9, 3.818638207840105*^9, 3.8186479893670487`*^9},
+ CellLabel->
+  "Out[107]=",ExpressionUUID->"fb0de699-dc90-4209-8355-48e2443b04e0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tilepArray", "=", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", "tile4p", ",", "\"\<\>\"", ",", "tile4p"}], 
+       "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4p", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile2p", ",", 
+          RowBox[{
+           RowBox[{"-", "90"}], "Degree"}]}], "]"}], ",", "tile1p", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile2p", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4p", ",", 
+          RowBox[{
+           RowBox[{"-", "90"}], "Degree"}]}], "]"}]}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4p", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile3p", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4p", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}]}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", "\"\<\>\"", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4p", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}]}], "}"}]}], "}"}], ",", 
+    RowBox[{"Spacings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.818625552607139*^9, 3.8186255532086115`*^9}, {
+  3.818625591097992*^9, 3.818625596476921*^9}, {3.8186256353402553`*^9, 
+  3.8186256539827323`*^9}, {3.8186256869445915`*^9, 3.818626056331636*^9}, {
+  3.818630433499631*^9, 3.8186304356354303`*^9}, {3.818630735544652*^9, 
+  3.818630771322546*^9}},
+ CellLabel->
+  "In[108]:=",ExpressionUUID->"59a79eb7-1104-4bdc-a971-e79190490d92"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"\"\>", 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[1, 3], 0}, {
+            Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+            0.3333333333333333, 0.3333333333333333}}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[
+          NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 0.3333333333333333}],
+           NCache[Rational[1, 6], 0.16666666666666666`], 
+          NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+            Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+            0.6666666666666666, 0}}]]}}, {}, {}, {
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+        {GrayLevel[1], 
+         PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], "\<\"\"\>", 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[1, 3], 0}, {
+            Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+            0.3333333333333333, 0.3333333333333333}}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[
+          NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 0.3333333333333333}],
+           NCache[Rational[1, 6], 0.16666666666666666`], 
+          NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+            Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+            0.6666666666666666, 0}}]]}}, {}, {}, {
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+        {GrayLevel[1], 
+         PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], ""},
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          CircleBox[{0, 0}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 0}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+            1.5707963267948966`}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+            3.141592653589793}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{0, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{0, Rational[-1, 2] Pi}, {0, -1.5707963267948966`}]]}}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`], 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{0, Rational[1, 3]}, {
+            Rational[1, 3], Rational[1, 3]}}, {{0, 0.3333333333333333}, {
+            0.3333333333333333, 0.3333333333333333}}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[NCache[{Rational[1, 3], 0}, {0.3333333333333333, 0}], 
+          NCache[Rational[1, 3], 0.3333333333333333], 
+          NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[{1, 0}, NCache[Rational[2, 3], 0.6666666666666666], 
+          NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+           1.5707963267948966`}]]}, 
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{0, Rational[2, 3]}, {
+            Rational[1, 3], Rational[2, 3]}}, {{0, 0.6666666666666666}, {
+            0.3333333333333333, 0.6666666666666666}}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[
+          NCache[{Rational[1, 3], Rational[1, 2]}, {0.3333333333333333, 0.5}],
+           NCache[Rational[1, 6], 0.16666666666666666`], 
+          NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[
+          NCache[{Rational[2, 3], Rational[1, 2]}, {0.6666666666666666, 0.5}],
+           NCache[Rational[1, 6], 0.16666666666666666`], 
+          NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+           3.141592653589793}]]}, 
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+            1, Rational[1, 3]}}, {{0.6666666666666666, 0.3333333333333333}, {
+            1, 0.3333333333333333}}]]}}, {}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+       {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+        PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          CircleBox[{0, 0}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 0}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+            1.5707963267948966`}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+            3.141592653589793}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{0, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{0, Rational[-1, 2] Pi}, {0, -1.5707963267948966`}]]}}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`]},
+    {"\<\"\"\>", 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{0, Rational[2, 3]}, {1, Rational[2, 3]}}, {{
+             0, 0.6666666666666666}, {1, 0.6666666666666666}}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{0, Rational[1, 3]}, {1, Rational[1, 3]}}, {{
+             0, 0.3333333333333333}, {1, 0.3333333333333333}}]]}}, {}, {
+         {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+          PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, {}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], ""},
+    {"\<\"\"\>", "\<\"\"\>", 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], "", ""}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{{3.8186304714335437`*^9, 3.8186304992914076`*^9}, 
+   3.8186307724238276`*^9, 3.818630845141942*^9, 3.818631189467848*^9, 
+   3.818633999327174*^9, 3.8186344840264683`*^9, 3.818638207983155*^9, 
+   3.8186477018002453`*^9, 3.8186479894830008`*^9},
+ CellLabel->
+  "Out[108]=",ExpressionUUID->"dc416898-7a67-454b-93f9-6eeee545d363"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile1p.png\>\"", ",", "tile1p"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile2p.png\>\"", ",", "tile2p"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile3p.png\>\"", ",", "tile3p"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile4p.png\>\"", ",", "tile4p"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tilepArray.png\>\"", ",", "tilepArray"}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.642959125426168*^9, 3.642959155466256*^9}, {
+   3.660801815913434*^9, 3.660801823790331*^9}, 3.660802200399515*^9, {
+   3.6926322591662626`*^9, 3.6926322620063124`*^9}, {3.6926322943174367`*^9, 
+   3.6926322944973955`*^9}, {3.6926754834729333`*^9, 
+   3.6926754842654147`*^9}, {3.818630428890687*^9, 3.8186304430812454`*^9}, {
+   3.818631134498497*^9, 3.8186311553213916`*^9}},
+ CellLabel->
+  "In[109]:=",ExpressionUUID->"39f067ab-c477-4a64-a31c-e41328ed48fb"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Define invaders and reconfigured structures", "Section",
+ CellChangeTimes->{{3.6311550271347127`*^9, 3.631155054608284*^9}, {
+  3.6926329560797863`*^9, 3.6926329868124404`*^9}, {3.818623678894953*^9, 
+  3.81862368020012*^9}, {3.818632091161665*^9, 3.818632092069928*^9}, {
+  3.818632176535449*^9, 3.818632197830905*^9}, {3.8186336908960066`*^9, 
+  3.818633702948674*^9}, {3.818633922872694*^9, 
+  3.818633923226677*^9}},ExpressionUUID->"d65c5b92-92c3-4226-835d-\
+0c6c2ef379fd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile5", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1", ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"3", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186236942125826`*^9, 3.818623718497653*^9}, {
+   3.8186238607324963`*^9, 3.8186238899359264`*^9}, {3.818624076265066*^9, 
+   3.8186240767846603`*^9}, {3.8186245273160295`*^9, 3.818624544439024*^9}, {
+   3.8186246473732386`*^9, 3.818624723161542*^9}, {3.818625009003621*^9, 
+   3.8186250240302916`*^9}, {3.8186255796919456`*^9, 
+   3.8186255800617523`*^9}, {3.818632115012658*^9, 3.8186321151658525`*^9}, {
+   3.8186322014425716`*^9, 3.8186322154435654`*^9}, 3.818634256504506*^9},
+ CellLabel->"In[61]:=",ExpressionUUID->"c00a2430-2514-48b6-90a0-bc6cfd33db95"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+     StyleBox[
+      SuperscriptBox["1", "*"],
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.5, 0.75}], InsetBox[
+     StyleBox["3",
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.75, 0.5}]}, {
+    {RGBColor[0.237736, 0.340215, 0.575113], 
+     PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+    {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{3.818632120920705*^9, 3.8186322158777*^9, 
+  3.8186340008270574`*^9, 3.818634257641961*^9, 3.818634485924972*^9, 
+  3.818638209222331*^9, 3.81863908929317*^9},
+ CellLabel->"Out[61]=",ExpressionUUID->"72602ebb-1af4-4d7c-be51-5824bf7a84de"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile6", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2", ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"3", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186236942125826`*^9, 3.818623718497653*^9}, {
+   3.8186238607324963`*^9, 3.8186238899359264`*^9}, {3.818624076265066*^9, 
+   3.8186240767846603`*^9}, {3.8186245273160295`*^9, 3.818624544439024*^9}, {
+   3.8186246473732386`*^9, 3.818624734216047*^9}, {3.8186247832410984`*^9, 
+   3.8186247914594707`*^9}, {3.8186250460205784`*^9, 3.818625057143238*^9}, {
+   3.8186255831362906`*^9, 3.8186255835842643`*^9}, {3.818632266689559*^9, 
+   3.8186322779683933`*^9}, 3.818634262345557*^9},
+ CellLabel->"In[62]:=",ExpressionUUID->"b03d8695-ff66-4cb8-8c42-2d0a0ce9451f"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+     StyleBox[
+      SuperscriptBox["2", "*"],
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+     StyleBox["3",
+      StripOnInput->False,
+      LineColor->GrayLevel[0],
+      FrontFaceColor->GrayLevel[0],
+      BackFaceColor->GrayLevel[0],
+      GraphicsColor->GrayLevel[0],
+      FontFamily->"Calibri",
+      FontSize->Scaled[0.2],
+      FontColor->GrayLevel[0]], {0.5, 0.25}]}, {}, {
+    {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+     PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+    {GrayLevel[1], PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, {}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{
+  3.818624791856519*^9, 3.8186250576440463`*^9, {3.8186255688236437`*^9, 
+   3.8186255841070013`*^9}, 3.8186311869763174`*^9, 3.8186322784055157`*^9, 
+   3.818634000908024*^9, 3.8186342631434307`*^9, 3.818634486025216*^9, 
+   3.8186382092708473`*^9, 3.8186390894090624`*^9},
+ CellLabel->"Out[62]=",ExpressionUUID->"34c7b0d1-e655-4819-9619-56a859a0a638"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"invader1", "=", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"tile5", ",", 
+       RowBox[{"Rotate", "[", 
+        RowBox[{"tile4", ",", 
+         RowBox[{
+          RowBox[{"-", "90"}], "Degree"}]}], "]"}]}], "}"}], "}"}], ",", 
+    RowBox[{"Spacings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.818632303745129*^9, 3.8186323522225637`*^9}, {
+   3.8186338674774127`*^9, 3.818633869468876*^9}, 3.8186342843487267`*^9},
+ CellLabel->"In[63]:=",ExpressionUUID->"1d6e4f6a-e16e-40a9-b1ce-a230e1066fb8"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+         StyleBox[
+          SuperscriptBox["1", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.75}], InsetBox[
+         StyleBox["3",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.75, 0.5}]}, {
+        {RGBColor[0.237736, 0.340215, 0.575113], 
+         PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+        {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+       {RGBColor[0.624866, 0.673302, 0.264296], 
+        PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`]}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{{3.8186323230299745`*^9, 3.8186323526715107`*^9}, 
+   3.8186338768269978`*^9, 3.818634001005536*^9, 3.818634286224503*^9, 
+   3.818634486145376*^9, 3.818638209352322*^9, 3.8186390895314817`*^9},
+ CellLabel->"Out[63]=",ExpressionUUID->"3c177300-f543-48d6-8b5f-06706349be04"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"invader2", "=", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Rotate", "[", 
+        RowBox[{"tile6", ",", 
+         RowBox[{"90", "Degree"}]}], "]"}], ",", 
+       RowBox[{"Rotate", "[", 
+        RowBox[{"tile4", ",", 
+         RowBox[{
+          RowBox[{"-", "90"}], "Degree"}]}], "]"}]}], "}"}], "}"}], ",", 
+    RowBox[{"Spacings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.818632374982082*^9, 3.818632393119523*^9}, {
+   3.8186338722620983`*^9, 3.818633874292138*^9}, 3.8186342927275386`*^9},
+ CellLabel->"In[64]:=",ExpressionUUID->"874b0448-5180-4ce7-9afd-cdbc7fa42261"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+          StyleBox[
+           SuperscriptBox["2", "*"],
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.5, 0.25}]}, {}, {
+         {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+          PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+         {GrayLevel[1], PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`]}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{{3.8186323807541337`*^9, 3.8186323941242104`*^9}, 
+   3.818633874721285*^9, 3.8186340011433334`*^9, 3.818634293467521*^9, 
+   3.818634486368434*^9, 3.8186382093779984`*^9, 3.8186390896469545`*^9},
+ CellLabel->"Out[64]=",ExpressionUUID->"b705554c-982b-4218-b989-a52adbe1722b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tileArrayReconfigured1", "=", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", "\"\<\>\"", ",", "tile4"}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile5", ",", 
+          RowBox[{
+           RowBox[{"-", "90"}], "Degree"}]}], "]"}], ",", "tile1", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile5", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}]}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile3", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}]}], "}"}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Spacings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.818625552607139*^9, 3.8186255532086115`*^9}, {
+   3.818625591097992*^9, 3.818625596476921*^9}, {3.8186256353402553`*^9, 
+   3.8186256539827323`*^9}, {3.8186256869445915`*^9, 3.818626056331636*^9}, {
+   3.818630433499631*^9, 3.8186304356354303`*^9}, 3.8186314736441097`*^9, {
+   3.81863260893863*^9, 3.818632709127182*^9}, {3.8186327461772923`*^9, 
+   3.8186327493029966`*^9}, {3.818634302677494*^9, 3.818634309302926*^9}, {
+   3.818638798477513*^9, 3.8186388063120003`*^9}, {3.8186388524716687`*^9, 
+   3.81863890912647*^9}},
+ CellLabel->"In[65]:=",ExpressionUUID->"2a953475-cd5c-4d15-88a8-ab773de62316"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"\"\>", "\<\"\"\>", 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+        StyleBox[
+         SuperscriptBox["3", "*"],
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->Scaled[0.2],
+         FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+        {GrayLevel[1], 
+         PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0]},
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+          StyleBox[
+           SuperscriptBox["1", "*"],
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.5, 0.75}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.75, 0.5}]}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`], 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+         StyleBox["1",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+         StyleBox["2",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], InsetBox[
+         StyleBox["1",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.25, 0.5}]}, {}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+       {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+        PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+          StyleBox[
+           SuperscriptBox["1", "*"],
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.5, 0.75}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.75, 0.5}]}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`]},
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+          StyleBox[
+           SuperscriptBox["2", "*"],
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.25, 0.5}]}, {}, {
+         {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+          PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, {}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], ""},
+    {"\<\"\"\>", 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], ""}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{{3.8186388874474745`*^9, 3.8186389094582243`*^9}, 
+   3.8186390897472744`*^9},
+ CellLabel->"Out[65]=",ExpressionUUID->"3cac8ed9-5047-4125-8b16-c5009fff7eda"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tileArrayReconfigured2", "=", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", "\"\<\>\"", ",", "tile4"}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile5", ",", 
+          RowBox[{
+           RowBox[{"-", "90"}], "Degree"}]}], "]"}], ",", "tile1", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile5", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}]}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile6", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4", ",", 
+          RowBox[{
+           RowBox[{"-", "90"}], "Degree"}]}], "]"}]}], "}"}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Spacings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.818625552607139*^9, 3.8186255532086115`*^9}, {
+   3.818625591097992*^9, 3.818625596476921*^9}, {3.8186256353402553`*^9, 
+   3.8186256539827323`*^9}, {3.8186256869445915`*^9, 3.818626056331636*^9}, {
+   3.818630433499631*^9, 3.8186304356354303`*^9}, 3.8186314736441097`*^9, {
+   3.81863260893863*^9, 3.818632709127182*^9}, {3.8186327461772923`*^9, 
+   3.8186327493029966`*^9}, {3.818634302677494*^9, 3.818634309302926*^9}, 
+   3.818638798477513*^9},
+ CellLabel->"In[66]:=",ExpressionUUID->"9d4763ef-3ec7-40e5-9bcf-a02be7257137"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"\"\>", "\<\"\"\>", 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+        StyleBox[
+         SuperscriptBox["3", "*"],
+         StripOnInput->False,
+         LineColor->GrayLevel[0],
+         FrontFaceColor->GrayLevel[0],
+         BackFaceColor->GrayLevel[0],
+         GraphicsColor->GrayLevel[0],
+         FontFamily->"Calibri",
+         FontSize->Scaled[0.2],
+         FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+        {GrayLevel[1], 
+         PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0]},
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+          StyleBox[
+           SuperscriptBox["1", "*"],
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.5, 0.75}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.75, 0.5}]}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`], 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+         StyleBox["1",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+         StyleBox["2",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], InsetBox[
+         StyleBox["1",
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.25, 0.5}]}, {}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+       {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+        PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+          StyleBox[
+           SuperscriptBox["1", "*"],
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.5, 0.75}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.75, 0.5}]}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`]},
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, {InsetBox[
+          StyleBox[
+           SuperscriptBox["2", "*"],
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.75, 0.5}], InsetBox[
+          StyleBox["3",
+           StripOnInput->False,
+           LineColor->GrayLevel[0],
+           FrontFaceColor->GrayLevel[0],
+           BackFaceColor->GrayLevel[0],
+           GraphicsColor->GrayLevel[0],
+           FontFamily->"Calibri",
+           FontSize->Scaled[0.2],
+           FontColor->GrayLevel[0]], {0.5, 0.25}]}, {}, {
+         {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+          PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+         {GrayLevel[1], PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {}, InsetBox[
+         StyleBox[
+          SuperscriptBox["3", "*"],
+          StripOnInput->False,
+          LineColor->GrayLevel[0],
+          FrontFaceColor->GrayLevel[0],
+          BackFaceColor->GrayLevel[0],
+          GraphicsColor->GrayLevel[0],
+          FontFamily->"Calibri",
+          FontSize->Scaled[0.2],
+          FontColor->GrayLevel[0]], {0.5, 0.25}], {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`]}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{{3.818632645507041*^9, 3.8186327096613617`*^9}, {
+   3.8186327467934623`*^9, 3.8186327497038307`*^9}, 3.8186340012747736`*^9, 
+   3.818634310453575*^9, 3.818634486653533*^9, 3.8186382095250597`*^9, 
+   3.8186388004819145`*^9, 3.8186390898631887`*^9},
+ CellLabel->"Out[66]=",ExpressionUUID->"2f7f6bd4-6b92-4a85-9467-5204d09f2559"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile5p", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+    "pattern", "\[Rule]", 
+     "\"\<((1,1/3),(1/3,1))@(1,1),((1,2/3),(2/3,1))@(1,1)\>\""}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.818630020473338*^9, 3.818630401686355*^9}, 
+   3.818630585236702*^9, {3.818633047274601*^9, 3.818633090655675*^9}, {
+   3.818633444505474*^9, 3.8186335025286827`*^9}, {3.818634317332385*^9, 
+   3.818634319941326*^9}},
+ CellLabel->"In[67]:=",ExpressionUUID->"54dbfd61-db15-4379-9e01-79431715683f"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+    {AbsoluteThickness[3], 
+     CircleBox[{1, 1}, NCache[Rational[2, 3], 0.6666666666666666], 
+      NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+       3.141592653589793}]]}, 
+    {AbsoluteThickness[3], 
+     CircleBox[{1, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+      NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+       3.141592653589793}]]}}, {
+    {RGBColor[0.237736, 0.340215, 0.575113], 
+     PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+    {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{{3.818633065087719*^9, 3.8186330917777205`*^9}, {
+   3.818633445486519*^9, 3.818633503108818*^9}, 3.8186340014062843`*^9, {
+   3.8186343179670367`*^9, 3.818634320590245*^9}, 3.8186344869008765`*^9, 
+   3.8186382096787367`*^9, 3.8186390899478703`*^9},
+ CellLabel->"Out[67]=",ExpressionUUID->"611178d2-8890-4e01-9eac-876149ff8fc6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tile6p", "=", 
+  RowBox[{"tileAbstract", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"2", ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+    "pattern", "\[Rule]", 
+     "\"\<((1/3,0),(1,2/3))@(1,0),((2/3,0),(1,1/3))@(1,0)\>\""}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186236942125826`*^9, 3.818623718497653*^9}, {
+   3.8186238607324963`*^9, 3.8186238899359264`*^9}, {3.818624076265066*^9, 
+   3.8186240767846603`*^9}, {3.8186245273160295`*^9, 3.818624544439024*^9}, {
+   3.8186246473732386`*^9, 3.818624734216047*^9}, {3.8186247832410984`*^9, 
+   3.8186247914594707`*^9}, {3.8186250460205784`*^9, 3.818625057143238*^9}, {
+   3.8186255831362906`*^9, 3.8186255835842643`*^9}, {3.818630623343175*^9, 
+   3.8186306303098326`*^9}, {3.818630818678481*^9, 3.8186308409169617`*^9}, {
+   3.818633123558298*^9, 3.8186331931433115`*^9}, 3.8186343236149483`*^9},
+ CellLabel->"In[68]:=",ExpressionUUID->"04161009-4fa7-4bbe-9cc1-306a1d95e837"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+   {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+    {AbsoluteThickness[3], 
+     CircleBox[{1, 0}, NCache[Rational[2, 3], 0.6666666666666666], 
+      NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+       1.5707963267948966`}]]}, 
+    {AbsoluteThickness[3], 
+     CircleBox[{1, 0}, NCache[Rational[1, 3], 0.3333333333333333], 
+      NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+       1.5707963267948966`}]]}}, {}, {
+    {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+     PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+    {GrayLevel[1], PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, 
+   {RGBColor[0.624866, 0.673302, 0.264296], 
+    PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, {}},
+  ImagePadding->0,
+  ImageSize->100,
+  PlotRangePadding->0]], "Output",
+ CellChangeTimes->{{3.818633124075123*^9, 3.818633193628927*^9}, 
+   3.8186340015066066`*^9, 3.8186343243326883`*^9, 3.8186344871700335`*^9, 
+   3.8186382097412395`*^9, 3.8186390899791327`*^9},
+ CellLabel->"Out[68]=",ExpressionUUID->"6f05fdf9-0fb8-4d30-86a5-dfd3d3607a3e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"invader1p", "=", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"tile5p", ",", 
+       RowBox[{"Rotate", "[", 
+        RowBox[{"tile4p", ",", 
+         RowBox[{
+          RowBox[{"-", "90"}], "Degree"}]}], "]"}]}], "}"}], "}"}], ",", 
+    RowBox[{"Spacings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8186332123406053`*^9, 3.8186332175629697`*^9}, {
+   3.818633884176477*^9, 3.818633886816865*^9}, 3.8186343296022873`*^9},
+ CellLabel->"In[69]:=",ExpressionUUID->"bfe756da-3fe1-4d0e-83f6-3aaca1e18db2"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+        {AbsoluteThickness[3], 
+         CircleBox[{1, 1}, NCache[Rational[2, 3], 0.6666666666666666], 
+          NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+           3.141592653589793}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[{1, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+          NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+           3.141592653589793}]]}}, {
+        {RGBColor[0.237736, 0.340215, 0.575113], 
+         PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+        {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+       {RGBColor[0.624866, 0.673302, 0.264296], 
+        PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`]}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{3.818633218058739*^9, 3.818633507336505*^9, 
+  3.818633887689722*^9, 3.8186340015912724`*^9, 3.818634330219549*^9, 
+  3.818634487354887*^9, 3.8186382097946544`*^9, 3.818639090010372*^9},
+ CellLabel->"Out[69]=",ExpressionUUID->"093e81b5-8fd7-4083-8fbf-8bdde5ad00f2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"invader2p", "=", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Rotate", "[", 
+        RowBox[{"tile6p", ",", 
+         RowBox[{"90", "Degree"}]}], "]"}], ",", 
+       RowBox[{"Rotate", "[", 
+        RowBox[{"tile4p", ",", 
+         RowBox[{
+          RowBox[{"-", "90"}], "Degree"}]}], "]"}]}], "}"}], "}"}], ",", 
+    RowBox[{"Spacings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.818632374982082*^9, 3.818632393119523*^9}, {
+   3.8186332309784336`*^9, 3.818633236293066*^9}, {3.8186338902977457`*^9, 
+   3.8186338929606977`*^9}, 3.818634334868593*^9},
+ CellLabel->"In[70]:=",ExpressionUUID->"28628f0b-598a-4ea3-8f99-e727f2509d5d"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 0}, NCache[Rational[2, 3], 0.6666666666666666], 
+           NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+            1.5707963267948966`}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 0}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+            1.5707963267948966`}]]}}, {}, {
+         {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+          PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+         {GrayLevel[1], PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`]}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{3.818633236731782*^9, 3.818633893541174*^9, 
+  3.818634001722755*^9, 3.8186343354940643`*^9, 3.818634487570999*^9, 
+  3.818638209926178*^9, 3.8186390900793877`*^9},
+ CellLabel->"Out[70]=",ExpressionUUID->"aa62149f-7326-412b-b13b-96c23202417e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tilepArrayReconfigured1", "=", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", "\"\<\>\"", ",", "tile4p"}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile5p", ",", 
+          RowBox[{
+           RowBox[{"-", "90"}], "Degree"}]}], "]"}], ",", "tile1p", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile5p", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}]}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4p", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile3p", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4p", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}]}], "}"}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Spacings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.818625552607139*^9, 3.8186255532086115`*^9}, {
+   3.818625591097992*^9, 3.818625596476921*^9}, {3.8186256353402553`*^9, 
+   3.8186256539827323`*^9}, {3.8186256869445915`*^9, 3.818626056331636*^9}, {
+   3.818630433499631*^9, 3.8186304356354303`*^9}, 3.8186314736441097`*^9, {
+   3.81863260893863*^9, 3.818632709127182*^9}, {3.8186327461772923`*^9, 
+   3.8186327493029966`*^9}, {3.818634302677494*^9, 3.818634309302926*^9}, {
+   3.818638798477513*^9, 3.8186388063120003`*^9}, {3.8186388524716687`*^9, 
+   3.81863890912647*^9}, {3.8186389799938703`*^9, 3.818639004426729*^9}},
+ CellLabel->"In[71]:=",ExpressionUUID->"efd1d9fc-0e72-4747-a66e-e6fea8a799cb"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"\"\>", "\<\"\"\>", 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[1, 3], 0}, {
+            Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+            0.3333333333333333, 0.3333333333333333}}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[
+          NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 0.3333333333333333}],
+           NCache[Rational[1, 6], 0.16666666666666666`], 
+          NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+            Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+            0.6666666666666666, 0}}]]}}, {}, {}, {
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+        {GrayLevel[1], 
+         PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0]},
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 1}, NCache[Rational[2, 3], 0.6666666666666666], 
+           NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+            3.141592653589793}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+            3.141592653589793}]]}}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`], 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{0, Rational[1, 3]}, {
+            Rational[1, 3], Rational[1, 3]}}, {{0, 0.3333333333333333}, {
+            0.3333333333333333, 0.3333333333333333}}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[NCache[{Rational[1, 3], 0}, {0.3333333333333333, 0}], 
+          NCache[Rational[1, 3], 0.3333333333333333], 
+          NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[{1, 0}, NCache[Rational[2, 3], 0.6666666666666666], 
+          NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+           1.5707963267948966`}]]}, 
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{0, Rational[2, 3]}, {
+            Rational[1, 3], Rational[2, 3]}}, {{0, 0.6666666666666666}, {
+            0.3333333333333333, 0.6666666666666666}}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[
+          NCache[{Rational[1, 3], Rational[1, 2]}, {0.3333333333333333, 0.5}],
+           NCache[Rational[1, 6], 0.16666666666666666`], 
+          NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[
+          NCache[{Rational[2, 3], Rational[1, 2]}, {0.6666666666666666, 0.5}],
+           NCache[Rational[1, 6], 0.16666666666666666`], 
+          NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+           3.141592653589793}]]}, 
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+            1, Rational[1, 3]}}, {{0.6666666666666666, 0.3333333333333333}, {
+            1, 0.3333333333333333}}]]}}, {}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+       {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+        PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 1}, NCache[Rational[2, 3], 0.6666666666666666], 
+           NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+            3.141592653589793}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+            3.141592653589793}]]}}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`]},
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{0, Rational[2, 3]}, {1, Rational[2, 3]}}, {{
+             0, 0.6666666666666666}, {1, 0.6666666666666666}}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{0, Rational[1, 3]}, {1, Rational[1, 3]}}, {{
+             0, 0.3333333333333333}, {1, 0.3333333333333333}}]]}}, {}, {
+         {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+          PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, {}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], ""},
+    {"\<\"\"\>", 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], ""}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{{3.818638995207031*^9, 3.81863900482765*^9}, 
+   3.8186390901797237`*^9},
+ CellLabel->"Out[71]=",ExpressionUUID->"54a2eac6-e57d-4d81-bc98-dc8d6f221601"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"tilepArrayReconfigured2", "=", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", ",", "\"\<\>\"", ",", "tile4p"}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile5p", ",", 
+          RowBox[{
+           RowBox[{"-", "90"}], "Degree"}]}], "]"}], ",", "tile1p", ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile5p", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}]}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4p", ",", 
+          RowBox[{"180", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile6p", ",", 
+          RowBox[{"90", "Degree"}]}], "]"}], ",", 
+        RowBox[{"Rotate", "[", 
+         RowBox[{"tile4p", ",", 
+          RowBox[{
+           RowBox[{"-", "90"}], "Degree"}]}], "]"}]}], "}"}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Spacings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.818625552607139*^9, 3.8186255532086115`*^9}, {
+   3.818625591097992*^9, 3.818625596476921*^9}, {3.8186256353402553`*^9, 
+   3.8186256539827323`*^9}, {3.8186256869445915`*^9, 3.818626056331636*^9}, {
+   3.818630433499631*^9, 3.8186304356354303`*^9}, 3.8186314736441097`*^9, {
+   3.81863260893863*^9, 3.818632709127182*^9}, {3.8186327461772923`*^9, 
+   3.8186327493029966`*^9}, {3.8186332442037573`*^9, 3.818633266623214*^9}, {
+   3.8186343452395024`*^9, 3.818634352669615*^9}, 3.8186389640785494`*^9},
+ CellLabel->"In[72]:=",ExpressionUUID->"ae915ae3-92e8-43d7-bc23-2fb37bddb954"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"\"\>", "\<\"\"\>", 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[1, 3], 0}, {
+            Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+            0.3333333333333333, 0.3333333333333333}}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[
+          NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 0.3333333333333333}],
+           NCache[Rational[1, 6], 0.16666666666666666`], 
+          NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+            Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+            0.6666666666666666, 0}}]]}}, {}, {}, {
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+        {GrayLevel[1], 
+         PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0]},
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 1}, NCache[Rational[2, 3], 0.6666666666666666], 
+           NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+            3.141592653589793}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+            3.141592653589793}]]}}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`], 
+     GraphicsBox[{
+       {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+       {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{0, Rational[1, 3]}, {
+            Rational[1, 3], Rational[1, 3]}}, {{0, 0.3333333333333333}, {
+            0.3333333333333333, 0.3333333333333333}}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[NCache[{Rational[1, 3], 0}, {0.3333333333333333, 0}], 
+          NCache[Rational[1, 3], 0.3333333333333333], 
+          NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[{1, 0}, NCache[Rational[2, 3], 0.6666666666666666], 
+          NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+           1.5707963267948966`}]]}, 
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{0, Rational[2, 3]}, {
+            Rational[1, 3], Rational[2, 3]}}, {{0, 0.6666666666666666}, {
+            0.3333333333333333, 0.6666666666666666}}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[
+          NCache[{Rational[1, 3], Rational[1, 2]}, {0.3333333333333333, 0.5}],
+           NCache[Rational[1, 6], 0.16666666666666666`], 
+          NCache[{Rational[1, 2] Pi, 0}, {1.5707963267948966`, 0}]]}, 
+        {AbsoluteThickness[3], 
+         CircleBox[
+          NCache[{Rational[2, 3], Rational[1, 2]}, {0.6666666666666666, 0.5}],
+           NCache[Rational[1, 6], 0.16666666666666666`], 
+          NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+           3.141592653589793}]]}, 
+        {AbsoluteThickness[3], 
+         LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+            1, Rational[1, 3]}}, {{0.6666666666666666, 0.3333333333333333}, {
+            1, 0.3333333333333333}}]]}}, {}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, 
+       {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+        PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, 
+       {RGBColor[0.237736, 0.340215, 0.575113], 
+        PolygonBox[{{0.1, 0.4}, {0.1, 0.6}, {-0.1, 0.5}}]}},
+      ImagePadding->0,
+      ImageSize->100,
+      PlotRangePadding->0], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 1}, NCache[Rational[2, 3], 0.6666666666666666], 
+           NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+            3.141592653589793}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 1}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Rational[3, 2] Pi, Pi}, {4.71238898038469, 
+            3.141592653589793}]]}}, {
+         {RGBColor[0.237736, 0.340215, 0.575113], 
+          PolygonBox[{{0.4, 1.05}, {0.6, 1.05}, {0.5, 0.85}}]}, 
+         {GrayLevel[1], PolygonBox[{{0.4, 1.1}, {0.6, 1.1}, {0.5, 0.9}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.9, 0.4}, {0.9, 0.6}, {1.1, 0.5}}]}, {}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`]},
+    {
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->3.141592653589793], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 0}, NCache[Rational[2, 3], 0.6666666666666666], 
+           NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+            1.5707963267948966`}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[{1, 0}, NCache[Rational[1, 3], 0.3333333333333333], 
+           NCache[{Pi, Rational[1, 2] Pi}, {3.141592653589793, 
+            1.5707963267948966`}]]}}, {}, {
+         {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+          PolygonBox[{{1.05, 0.4}, {1.05, 0.6}, {0.85, 0.5}}]}, 
+         {GrayLevel[1], PolygonBox[{{1.1, 0.4}, {1.1, 0.6}, {0.9, 0.5}}]}}, 
+        {RGBColor[0.624866, 0.673302, 0.264296], 
+         PolygonBox[{{0.4, 0.1}, {0.6, 0.1}, {0.5, -0.1}}]}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->1.5707963267948966`], 
+     RotationBox[
+      GraphicsBox[{
+        {GrayLevel[1], RectangleBox[{-0.1, -0.1}, {1.1, 1.1}]}, 
+        {RGBColor[0.75, 0.75, 0.75], RectangleBox[{0, 0}]}, {
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[1, 3], 0}, {
+             Rational[1, 3], Rational[1, 3]}}, {{0.3333333333333333, 0}, {
+             0.3333333333333333, 0.3333333333333333}}]]}, 
+         {AbsoluteThickness[3], 
+          CircleBox[
+           NCache[{Rational[1, 2], Rational[1, 3]}, {0.5, 
+            0.3333333333333333}], NCache[
+           Rational[1, 6], 0.16666666666666666`], 
+           NCache[{Pi, 0}, {3.141592653589793, 0}]]}, 
+         {AbsoluteThickness[3], 
+          LineBox[NCache[{{Rational[2, 3], Rational[1, 3]}, {
+             Rational[2, 3], 0}}, {{0.6666666666666666, 0.3333333333333333}, {
+             0.6666666666666666, 0}}]]}}, {}, {}, {
+         {RGBColor[0.624866, 0.673302, 0.264296], 
+          PolygonBox[{{0.4, -0.05}, {0.6, -0.05}, {0.5, 0.15}}]}, 
+         {GrayLevel[1], 
+          PolygonBox[{{0.4, -0.1}, {0.6, -0.1}, {0.5, 0.1}}]}}, {}},
+       ImagePadding->0,
+       ImageSize->100,
+       PlotRangePadding->0],
+      BoxRotation->-1.5707963267948966`]}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxSpacings->{"Columns" -> {{0}}, "Rows" -> {{0}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{3.8186332678436227`*^9, 3.818633513156581*^9, 
+  3.8186340019922256`*^9, 3.8186343534711046`*^9, 3.8186344878873577`*^9, 
+  3.818638210095522*^9, 3.818639090264385*^9},
+ CellLabel->"Out[72]=",ExpressionUUID->"b9b94253-5b16-4d17-bbef-659b85b887f9"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile5.png\>\"", ",", "tile5"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile6.png\>\"", ",", "tile6"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<invader1.png\>\"", ",", "invader1"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<invader2.png\>\"", ",", "invader2"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<tileArrayReconfigured1.png\>\"", ",", "tileArrayReconfigured1"}], 
+   "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<tileArrayReconfigured2.png\>\"", ",", "tileArrayReconfigured2"}], 
+   "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile5p.png\>\"", ",", "tile5p"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<tile6p.png\>\"", ",", "tile6p"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<invader1p.png\>\"", ",", "invader1p"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<invader2p.png\>\"", ",", "invader2p"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<tilepArrayReconfigured1.png\>\"", ",", "tilepArrayReconfigured1"}], 
+   "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<tilepArrayReconfigured2.png\>\"", ",", "tilepArrayReconfigured2"}], 
+   "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.642959125426168*^9, 3.642959155466256*^9}, {
+   3.660801815913434*^9, 3.660801823790331*^9}, 3.660802200399515*^9, {
+   3.6926322591662626`*^9, 3.6926322620063124`*^9}, {3.6926322943174367`*^9, 
+   3.6926322944973955`*^9}, {3.6926754834729333`*^9, 
+   3.6926754842654147`*^9}, {3.818630428890687*^9, 3.8186304430812454`*^9}, {
+   3.818631134498497*^9, 3.8186311553213916`*^9}, {3.818633739688321*^9, 
+   3.8186337830297236`*^9}, {3.818634399174802*^9, 3.8186344274268155`*^9}, {
+   3.8186390615382853`*^9, 3.818639081190339*^9}},
+ CellLabel->"In[73]:=",ExpressionUUID->"24ead991-8aff-426f-a8dd-28d7106d306a"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{951., 474.25},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 510, 9, 131, "Title",ExpressionUUID->"6328f97f-1c58-463c-b115-221541918bd4"],
+Cell[CellGroupData[{
+Cell[1115, 35, 255, 4, 67, "Section",ExpressionUUID->"04ff8c5c-0fde-41cb-97f9-989792cf05f6"],
+Cell[1373, 41, 1745, 46, 121, "Code",ExpressionUUID->"7f1b4e2d-117a-48d1-9d34-f62ca14f92fc"],
+Cell[3121, 89, 810, 22, 50, "Code",ExpressionUUID->"310ef093-4fac-426e-8fe0-fd20b0827947"],
+Cell[3934, 113, 30007, 711, 1188, "Code",ExpressionUUID->"3308092c-5db1-4aed-a866-f766da82ba48"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[33978, 829, 257, 4, 53, "Section",ExpressionUUID->"07443fca-1734-460c-a15c-28d1d3aed705"],
+Cell[34238, 835, 1014, 18, 160, "Text",ExpressionUUID->"abdf5e49-f2e8-4204-aa49-4078221a0e00"],
+Cell[CellGroupData[{
+Cell[35277, 857, 953, 20, 48, "Input",ExpressionUUID->"1ab54558-e9bf-4ab6-949c-047e22af15c1"],
+Cell[36233, 879, 2113, 49, 116, "Output",ExpressionUUID->"6d83c352-6854-439c-8a23-7f4ee323309e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[38383, 933, 824, 18, 48, "Input",ExpressionUUID->"96fc4d6f-96a2-4e7c-b226-791f4f104067"],
+Cell[39210, 953, 2244, 57, 116, "Output",ExpressionUUID->"78a472ad-ac24-4304-8691-9e293ca4e94b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[41491, 1015, 877, 19, 48, "Input",ExpressionUUID->"e3e56594-03a4-4599-90ca-59b458a1dd77"],
+Cell[42371, 1036, 1476, 35, 116, "Output",ExpressionUUID->"7b858d84-0897-496b-b28c-e2ba35481a74"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[43884, 1076, 902, 19, 48, "Input",ExpressionUUID->"a49afd86-bb3e-47e4-8926-f72c1c91e650"],
+Cell[44789, 1097, 975, 23, 116, "Output",ExpressionUUID->"6779c832-107f-4d0f-9334-1523d39131f5"]
+}, Open  ]],
+Cell[45779, 1123, 690, 11, 72, "Text",ExpressionUUID->"6994b0e3-ced5-4fb7-b719-2377e119550a"],
+Cell[46472, 1136, 1102, 26, 105, "Input",ExpressionUUID->"233ad19f-aa74-4381-9136-7568d3b0f084"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[47611, 1167, 317, 5, 53, "Section",ExpressionUUID->"488e527d-8cb1-4a3b-9884-351e0994b1f8"],
+Cell[47931, 1174, 698, 12, 50, "Text",ExpressionUUID->"91504651-3eac-46c8-b10f-c81f77edf3eb"],
+Cell[CellGroupData[{
+Cell[48654, 1190, 2035, 51, 143, "Input",ExpressionUUID->"057d9def-b2c2-4f12-8e49-9ae310c99ec4"],
+Cell[50692, 1243, 13969, 345, 70, "Output",ExpressionUUID->"fccf9041-fea9-4b62-a55c-21e3ed129619"]
+}, Open  ]],
+Cell[64676, 1591, 688, 14, 48, "Input",ExpressionUUID->"e719b217-49b5-47f2-b1f9-226149ebc42b"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[65401, 1610, 272, 4, 53, "Section",ExpressionUUID->"118206d3-da99-4aac-883d-68d387a17bad"],
+Cell[65676, 1616, 1502, 24, 160, "Text",ExpressionUUID->"45a0680f-9bca-47c5-bef4-4bb84b5b413b"],
+Cell[67181, 1642, 567, 10, 50, "Text",ExpressionUUID->"0de5b91c-74ac-47b0-bd0c-e7b5c1647ae9"],
+Cell[CellGroupData[{
+Cell[67773, 1656, 1795, 34, 105, "Input",ExpressionUUID->"1d01ef5d-7c27-498f-82f1-fcaa8f43e636"],
+Cell[69571, 1692, 2992, 58, 116, "Output",ExpressionUUID->"71bcec78-87f9-407d-9bc9-c391867e5d8c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[72600, 1755, 910, 23, 48, "Input",ExpressionUUID->"5a97ca3c-db65-4a20-aa11-a72b1b2c707e"],
+Cell[73513, 1780, 2076, 40, 116, "Output",ExpressionUUID->"0df5b133-486e-4744-836e-5755c92a8c01"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[75626, 1825, 1206, 26, 48, "Input",ExpressionUUID->"0907bf60-0ccc-4c92-8773-8304fb605622"],
+Cell[76835, 1853, 1273, 25, 116, "Output",ExpressionUUID->"0726e3d9-479a-41af-867e-819111540518"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[78145, 1883, 1120, 26, 48, "Input",ExpressionUUID->"30ad008f-d82f-4ab9-9688-1da7b76eea8f"],
+Cell[79268, 1911, 1354, 28, 116, "Output",ExpressionUUID->"fb0de699-dc90-4209-8355-48e2443b04e0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[80659, 1944, 2045, 52, 124, "Input",ExpressionUUID->"59a79eb7-1104-4bdc-a971-e79190490d92"],
+Cell[82707, 1998, 15195, 317, 419, "Output",ExpressionUUID->"dc416898-7a67-454b-93f9-6eeee545d363"]
+}, Open  ]],
+Cell[97917, 2318, 1254, 32, 124, "Input",ExpressionUUID->"39f067ab-c477-4a64-a31c-e41328ed48fb"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[99208, 2355, 483, 7, 53, "Section",ExpressionUUID->"d65c5b92-92c3-4226-835d-0c6c2ef379fd"],
+Cell[CellGroupData[{
+Cell[99716, 2366, 956, 20, 28, "Input",ExpressionUUID->"c00a2430-2514-48b6-90a0-bc6cfd33db95"],
+Cell[100675, 2388, 1390, 34, 116, "Output",ExpressionUUID->"72602ebb-1af4-4d7c-be51-5824bf7a84de"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[102102, 2427, 956, 20, 28, "Input",ExpressionUUID->"b03d8695-ff66-4cb8-8c42-2d0a0ce9451f"],
+Cell[103061, 2449, 1531, 36, 116, "Output",ExpressionUUID->"34c7b0d1-e655-4819-9619-56a859a0a638"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[104629, 2490, 635, 16, 28, "Input",ExpressionUUID->"1d6e4f6a-e16e-40a9-b1ce-a230e1066fb8"],
+Cell[105267, 2508, 2616, 63, 119, "Output",ExpressionUUID->"3c177300-f543-48d6-8b5f-06706349be04"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[107920, 2576, 731, 19, 28, "Input",ExpressionUUID->"874b0448-5180-4ce7-9afd-cdbc7fa42261"],
+Cell[108654, 2597, 2732, 65, 119, "Output",ExpressionUUID->"b705554c-982b-4218-b989-a52adbe1722b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[111423, 2667, 1848, 44, 105, "Input",ExpressionUUID->"2a953475-cd5c-4d15-88a8-ab773de62316"],
+Cell[113274, 2713, 8563, 213, 419, "Output",ExpressionUUID->"3cac8ed9-5047-4125-8b16-c5009fff7eda"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[121874, 2931, 1735, 42, 105, "Input",ExpressionUUID->"9d4763ef-3ec7-40e5-9bcf-a02be7257137"],
+Cell[123612, 2975, 8701, 213, 319, "Output",ExpressionUUID->"2f7f6bd4-6b92-4a85-9467-5204d09f2559"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[132350, 3193, 856, 22, 48, "Input",ExpressionUUID->"54dbfd61-db15-4379-9e01-79431715683f"],
+Cell[133209, 3217, 1225, 24, 116, "Output",ExpressionUUID->"611178d2-8890-4e01-9eac-876149ff8fc6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[134471, 3246, 1222, 26, 48, "Input",ExpressionUUID->"04161009-4fa7-4bbe-9cc1-306a1d95e837"],
+Cell[135696, 3274, 1180, 23, 116, "Output",ExpressionUUID->"6f05fdf9-0fb8-4d30-86a5-dfd3d3607a3e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[136913, 3302, 638, 16, 28, "Input",ExpressionUUID->"bfe756da-3fe1-4d0e-83f6-3aaca1e18db2"],
+Cell[137554, 3320, 2634, 56, 119, "Output",ExpressionUUID->"093e81b5-8fd7-4083-8fbf-8bdde5ad00f2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[140225, 3381, 786, 20, 28, "Input",ExpressionUUID->"28628f0b-598a-4ea3-8f99-e727f2509d5d"],
+Cell[141014, 3403, 2721, 58, 119, "Output",ExpressionUUID->"aa62149f-7326-412b-b13b-96c23202417e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[143772, 3466, 1904, 44, 105, "Input",ExpressionUUID->"efd1d9fc-0e72-4747-a66e-e6fea8a799cb"],
+Cell[145679, 3512, 9136, 193, 419, "Output",ExpressionUUID->"54a2eac6-e57d-4d81-bc98-dc8d6f221601"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[154852, 3710, 1795, 42, 105, "Input",ExpressionUUID->"ae915ae3-92e8-43d7-bc23-2fb37bddb954"],
+Cell[156650, 3754, 9269, 194, 319, "Output",ExpressionUUID->"b9b94253-5b16-4d17-bbef-659b85b887f9"]
+}, Open  ]],
+Cell[165934, 3951, 2451, 65, 258, "Input",ExpressionUUID->"24ead991-8aff-426f-a8dd-28d7106d306a"]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+

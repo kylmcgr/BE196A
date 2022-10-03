@@ -1,0 +1,267 @@
+Create Mixes
+1) Create Bridge Strand Mixes (100/38 uM, 38 uL):
+Bridge Mix
+   Bri_T1R02C5 (100 uM): 1 uL 
+   Bri_T1R05C4 (100 uM): 1 uL 
+   Bri_T1R07C2 (100 uM): 1 uL 
+   Bri_T1R08C1 (100 uM): 1 uL 
+   Bri_T1R12C1 (100 uM): 1 uL 
+   Bri_T1R14C2 (100 uM): 1 uL 
+   Bri_T1R16C3 (100 uM): 1 uL 
+   Bri_T1R18C5 (100 uM): 1 uL 
+   Bri_T1R19C5 (100 uM): 1 uL 
+   Bri_T2R02C5 (100 uM): 1 uL 
+   Bri_T2R05C4 (100 uM): 1 uL 
+   Bri_T2R07C2 (100 uM): 1 uL 
+   Bri_T2R08C1 (100 uM): 1 uL 
+   Bri_T2R10C0 (100 uM): 1 uL 
+   Bri_T2R12C1 (100 uM): 1 uL 
+   Bri_T2R14C2 (100 uM): 1 uL 
+   Bri_T2R16C3 (100 uM): 1 uL 
+   Bri_T2R18C5 (100 uM): 1 uL 
+   Bri_T2R19C5 (100 uM): 1 uL 
+   Bri_T3R02C5 (100 uM): 1 uL 
+   Bri_T3R05C4 (100 uM): 1 uL 
+   Bri_T3R07C2 (100 uM): 1 uL 
+   Bri_T3R08C1 (100 uM): 1 uL 
+   Bri_T3R12C1 (100 uM): 1 uL 
+   Bri_T3R14C2 (100 uM): 1 uL 
+   Bri_T3R16C3 (100 uM): 1 uL 
+   Bri_T3R18C5 (100 uM): 1 uL 
+   Bri_T3R19C5 (100 uM): 1 uL 
+   Bri_T4R02C5 (100 uM): 1 uL 
+   Bri_T4R05C4 (100 uM): 1 uL 
+   Bri_T4R07C2 (100 uM): 1 uL 
+   Bri_T4R08C1 (100 uM): 1 uL 
+   Bri_T4R10C0 (100 uM): 1 uL 
+   Bri_T4R12C1 (100 uM): 1 uL 
+   Bri_T4R14C2 (100 uM): 1 uL 
+   Bri_T4R16C3 (100 uM): 1 uL 
+   Bri_T4R18C5 (100 uM): 1 uL 
+   Bri_T4R19C5 (100 uM): 1 uL 
+
+2) Create Edge Strand Mixes  (15/44 uM, 44 uL):
+
+Edge_Tile_11
+   Edg_T1R02C7_DHP (15 uM): 1 uL
+   Edg_T1R06C7_DHP (15 uM): 1 uL
+   Edg_T1R10C7_DHP (15 uM): 1 uL
+   Edg_T1R14C7_DHP (15 uM): 1 uL
+   Edg_T1R18C7_DHP (15 uM): 1 uL
+   Edg_T2R02C7_DHP (15 uM): 1 uL
+   Edg_T2R06C7_DHP (15 uM): 1 uL
+   Edg_T2R10C7_DHP (15 uM): 1 uL
+   Edg_T2R14C7_DHP (15 uM): 1 uL
+   Edg_T2R18C7_DHP (15 uM): 1 uL
+   Edg_T3R02C7_DHP (15 uM): 1 uL
+   Edg_T3R06C7_DHP (15 uM): 1 uL
+   Edg_T3R10C7_DHP (15 uM): 1 uL
+   Edg_T3R14C7_DHP (15 uM): 1 uL
+   Edg_T3R18C7_DHP (15 uM): 1 uL
+   Edg_T4R02C7_DHP (15 uM): 1 uL
+   Edg_T4R06C7_DHP (15 uM): 1 uL
+   Edg_T4R10C7_DHP (15 uM): 1 uL
+   Edg_T4R14C7_DHP (15 uM): 1 uL
+   Edg_T4R18C7_DHP (15 uM): 1 uL
+   1xTE: 24 uL
+
+3) Create Negation Strand Mixes (200/44 uM, 44 uL):
+Negation Mix
+   Neg_T1R00C7 (200 uM): 1 uL
+   Neg_T1R02C7 (200 uM): 1 uL
+   Neg_T1R04C7 (200 uM): 1 uL
+   Neg_T1R06C7 (200 uM): 1 uL
+   Neg_T1R08C7 (200 uM): 1 uL
+   Neg_T1R10C7 (200 uM): 1 uL
+   Neg_T1R12C7 (200 uM): 1 uL
+   Neg_T1R14C7 (200 uM): 1 uL
+   Neg_T1R16C7 (200 uM): 1 uL
+   Neg_T1R18C7 (200 uM): 1 uL
+   Neg_T1R20C7 (200 uM): 1 uL
+   Neg_T2R00C7 (200 uM): 1 uL
+   Neg_T2R02C7 (200 uM): 1 uL
+   Neg_T2R04C7 (200 uM): 1 uL
+   Neg_T2R06C7 (200 uM): 1 uL
+   Neg_T2R08C7 (200 uM): 1 uL
+   Neg_T2R10C7 (200 uM): 1 uL
+   Neg_T2R12C7 (200 uM): 1 uL
+   Neg_T2R14C7 (200 uM): 1 uL
+   Neg_T2R16C7 (200 uM): 1 uL
+   Neg_T2R18C7 (200 uM): 1 uL
+   Neg_T2R20C7 (200 uM): 1 uL
+   Neg_T3R00C7 (200 uM): 1 uL
+   Neg_T3R02C7 (200 uM): 1 uL
+   Neg_T3R04C7 (200 uM): 1 uL
+   Neg_T3R06C7 (200 uM): 1 uL
+   Neg_T3R08C7 (200 uM): 1 uL
+   Neg_T3R10C7 (200 uM): 1 uL
+   Neg_T3R12C7 (200 uM): 1 uL
+   Neg_T3R14C7 (200 uM): 1 uL
+   Neg_T3R16C7 (200 uM): 1 uL
+   Neg_T3R18C7 (200 uM): 1 uL
+   Neg_T3R20C7 (200 uM): 1 uL
+   Neg_T4R00C7 (200 uM): 1 uL
+   Neg_T4R02C7 (200 uM): 1 uL
+   Neg_T4R04C7 (200 uM): 1 uL
+   Neg_T4R06C7 (200 uM): 1 uL
+   Neg_T4R08C7 (200 uM): 1 uL
+   Neg_T4R10C7 (200 uM): 1 uL
+   Neg_T4R12C7 (200 uM): 1 uL
+   Neg_T4R14C7 (200 uM): 1 uL
+   Neg_T4R16C7 (200 uM): 1 uL
+   Neg_T4R18C7 (200 uM): 1 uL
+   Neg_T4R20C7 (200 uM): 1 uL
+
+4) Create Internal Strand Mixes (30/136 uM, 136 uL):
+
+Internal_Tile_11
+   Reg_T1R01C6 (30 uM): 1 uL 
+   ssEx_Reg_T1R03C5 (30 uM): 1 uL 
+   Reg_T1R03C6 (30 uM): 1 uL 
+   ssEx_Reg_T1R04C5 (30 uM): 1 uL 
+   ssEx_Reg_T1R05C6 (30 uM): 1 uL 
+   Reg_T1R06C3 (30 uM): 1 uL 
+   Reg_T1R06C5 (30 uM): 1 uL 
+   ssEx_Reg_T1R07C4 (30 uM): 1 uL 
+   ssEx_Reg_T1R07C6 (30 uM): 1 uL 
+   Reg_T1R08C3 (30 uM): 1 uL 
+   Reg_T1R08C5 (30 uM): 1 uL 
+   Reg_T1R09C2 (30 uM): 1 uL 
+   ssEx_Reg_T1R09C4 (30 uM): 1 uL 
+   ssEx_Reg_T1R09C6 (30 uM): 1 uL 
+   Reg_T1R10C1 (30 uM): 1 uL 
+   Reg_T1R10C3 (30 uM): 1 uL 
+   Reg_T1R10C5 (30 uM): 1 uL 
+   Reg_T1R11C2 (30 uM): 1 uL 
+   Reg_T1R11C4 (30 uM): 1 uL 
+   Reg_T1R11C6 (30 uM): 1 uL 
+   ssEx_Reg_T1R12C3 (30 uM): 1 uL 
+   ssEx_Reg_T1R12C5 (30 uM): 1 uL 
+   Reg_T1R13C2 (30 uM): 1 uL 
+   Reg_T1R13C4 (30 uM): 1 uL 
+   Reg_T1R13C6 (30 uM): 1 uL 
+   ssEx_Reg_T1R14C3 (30 uM): 1 uL 
+   ssEx_Reg_T1R14C5 (30 uM): 1 uL 
+   ssEx_Reg_T1R15C4 (30 uM): 1 uL 
+   ssEx_Reg_T1R15C6 (30 uM): 1 uL 
+   Reg_T1R16C5 (30 uM): 1 uL 
+   ssEx_Reg_T1R17C4 (30 uM): 1 uL 
+   ssEx_Reg_T1R17C6 (30 uM): 1 uL 
+   ssEx_Reg_T1R19C6 (30 uM): 1 uL 
+   Reg_T1R21C5 (30 uM): 1 uL 
+   Reg_T2R01C6 (30 uM): 1 uL 
+   Reg_T2R03C5 (30 uM): 1 uL 
+   Reg_T2R03C6 (30 uM): 1 uL 
+   Reg_T2R04C5 (30 uM): 1 uL 
+   Reg_T2R05C6 (30 uM): 1 uL 
+   ssEx_Reg_T2R06C3 (30 uM): 1 uL 
+   Reg_T2R06C5 (30 uM): 1 uL 
+   Reg_T2R07C4 (30 uM): 1 uL 
+   Reg_T2R07C6 (30 uM): 1 uL 
+   ssEx_Reg_T2R08C3 (30 uM): 1 uL 
+   Reg_T2R08C5 (30 uM): 1 uL 
+   ssEx_Reg_T2R09C2 (30 uM): 1 uL 
+   Reg_T2R09C4 (30 uM): 1 uL 
+   Reg_T2R09C6 (30 uM): 1 uL 
+   Reg_T2R10C1 (30 uM): 1 uL 
+   ssEx_Reg_T2R10C3 (30 uM): 1 uL 
+   Reg_T2R10C5 (30 uM): 1 uL 
+   ssEx_Reg_T2R11C2 (30 uM): 1 uL 
+   Reg_T2R11C4 (30 uM): 1 uL 
+   Reg_T2R11C6 (30 uM): 1 uL 
+   ssEx_Reg_T2R12C3 (30 uM): 1 uL 
+   Reg_T2R12C5 (30 uM): 1 uL 
+   ssEx_Reg_T2R13C2 (30 uM): 1 uL 
+   Reg_T2R13C4 (30 uM): 1 uL 
+   Reg_T2R13C6 (30 uM): 1 uL 
+   ssEx_Reg_T2R14C3 (30 uM): 1 uL 
+   Reg_T2R14C5 (30 uM): 1 uL 
+   Reg_T2R15C4 (30 uM): 1 uL 
+   Reg_T2R15C6 (30 uM): 1 uL 
+   Reg_T2R16C5 (30 uM): 1 uL 
+   Reg_T2R17C4 (30 uM): 1 uL 
+   Reg_T2R17C6 (30 uM): 1 uL 
+   Reg_T2R19C6 (30 uM): 1 uL 
+   Reg_T2R21C5 (30 uM): 1 uL 
+   Reg_T3R01C6 (30 uM): 1 uL 
+   ssEx_Reg_T3R03C5 (30 uM): 1 uL 
+   Reg_T3R03C6 (30 uM): 1 uL 
+   ssEx_Reg_T3R04C5 (30 uM): 1 uL 
+   ssEx_Reg_T3R05C6 (30 uM): 1 uL 
+   Reg_T3R06C3 (30 uM): 1 uL 
+   Reg_T3R06C5 (30 uM): 1 uL 
+   ssEx_Reg_T3R07C4 (30 uM): 1 uL 
+   ssEx_Reg_T3R07C6 (30 uM): 1 uL 
+   Reg_T3R08C3 (30 uM): 1 uL 
+   Reg_T3R08C5 (30 uM): 1 uL 
+   Reg_T3R09C2 (30 uM): 1 uL 
+   Reg_T3R09C4 (30 uM): 1 uL 
+   Reg_T3R09C6 (30 uM): 1 uL 
+   Reg_T3R10C1 (30 uM): 1 uL 
+   Reg_T3R10C3 (30 uM): 1 uL 
+   Reg_T3R10C5 (30 uM): 1 uL 
+   Reg_T3R11C2 (30 uM): 1 uL 
+   Reg_T3R11C4 (30 uM): 1 uL 
+   Reg_T3R11C6 (30 uM): 1 uL 
+   ssEx_Reg_T3R12C3 (30 uM): 1 uL 
+   ssEx_Reg_T3R12C5 (30 uM): 1 uL 
+   Reg_T3R13C2 (30 uM): 1 uL 
+   Reg_T3R13C4 (30 uM): 1 uL 
+   Reg_T3R13C6 (30 uM): 1 uL 
+   ssEx_Reg_T3R14C3 (30 uM): 1 uL 
+   ssEx_Reg_T3R14C5 (30 uM): 1 uL 
+   Reg_T3R15C4 (30 uM): 1 uL 
+   Reg_T3R15C6 (30 uM): 1 uL 
+   ssEx_Reg_T3R16C5 (30 uM): 1 uL 
+   ssEx_Reg_T3R17C4 (30 uM): 1 uL 
+   ssEx_Reg_T3R17C6 (30 uM): 1 uL 
+   ssEx_Reg_T3R19C6 (30 uM): 1 uL 
+   Reg_T3R21C5 (30 uM): 1 uL 
+   Reg_T4R01C6 (30 uM): 1 uL 
+   Reg_T4R03C5 (30 uM): 1 uL 
+   Reg_T4R03C6 (30 uM): 1 uL 
+   Reg_T4R04C5 (30 uM): 1 uL 
+   Reg_T4R05C6 (30 uM): 1 uL 
+   ssEx_Reg_T4R06C3 (30 uM): 1 uL 
+   Reg_T4R06C5 (30 uM): 1 uL 
+   Reg_T4R07C4 (30 uM): 1 uL 
+   Reg_T4R07C6 (30 uM): 1 uL 
+   ssEx_Reg_T4R08C3 (30 uM): 1 uL 
+   Reg_T4R08C5 (30 uM): 1 uL 
+   ssEx_Reg_T4R09C2 (30 uM): 1 uL 
+   Reg_T4R09C4 (30 uM): 1 uL 
+   Reg_T4R09C6 (30 uM): 1 uL 
+   Reg_T4R10C1 (30 uM): 1 uL 
+   ssEx_Reg_T4R10C3 (30 uM): 1 uL 
+   Reg_T4R10C5 (30 uM): 1 uL 
+   ssEx_Reg_T4R11C2 (30 uM): 1 uL 
+   Reg_T4R11C4 (30 uM): 1 uL 
+   Reg_T4R11C6 (30 uM): 1 uL 
+   ssEx_Reg_T4R12C3 (30 uM): 1 uL 
+   Reg_T4R12C5 (30 uM): 1 uL 
+   ssEx_Reg_T4R13C2 (30 uM): 1 uL 
+   Reg_T4R13C4 (30 uM): 1 uL 
+   Reg_T4R13C6 (30 uM): 1 uL 
+   ssEx_Reg_T4R14C3 (30 uM): 1 uL 
+   Reg_T4R14C5 (30 uM): 1 uL 
+   Reg_T4R15C4 (30 uM): 1 uL 
+   Reg_T4R15C6 (30 uM): 1 uL 
+   Reg_T4R16C5 (30 uM): 1 uL 
+   Reg_T4R17C4 (30 uM): 1 uL 
+   Reg_T4R17C6 (30 uM): 1 uL 
+   Reg_T4R19C6 (30 uM): 1 uL 
+   Reg_T4R21C5 (30 uM): 1 uL 
+
+Create Tiles
+Tile_ij Mix (10 nM, 100 uL)     NOTE: 1<=i<=1, 1<=j<=1 per above mixes
+   M13 (0.343 uM): 3 uL
+   Internal_Tile_ij (30/136 uM): 34 uL
+   Bridge Mix (100/38 uM): 2.5 uL
+   Edge_Tile_ij (15/44 uM): 22 uL
+   1xTE: 20.25 uL
+   1xTE/10xMg2+: 10 uL
+
+(NOTE: values are scaled to 100 uL total including later added Negation Strands) 
+
+Anneal all Tiles_ij Mixes: 90 C for 2 minutes then 90-20 C 6 seconds per 0.1 C
+
